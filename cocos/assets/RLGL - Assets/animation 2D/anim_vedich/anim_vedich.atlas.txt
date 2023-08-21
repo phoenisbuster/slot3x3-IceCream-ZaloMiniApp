@@ -1,0 +1,90 @@
+
+anim_vedich.png
+size: 955,629
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Levels 2
+  rotate: true
+  xy: 2, 2
+  size: 625, 204
+  orig: 625, 204
+  offset: 0, 0
+  index: -1
+bangron
+  rotate: true
+  xy: 208, 2
+  size: 625, 204
+  orig: 625, 204
+  offset: 0, 0
+  index: -1
+light
+  rotate: true
+  xy: 414, 40
+  size: 409, 405
+  orig: 409, 405
+  offset: 0, 0
+  index: -1
+node1
+  rotate: false
+  xy: 936, 610
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+node2
+  rotate: false
+  xy: 441, 10
+  size: 44, 28
+  orig: 44, 28
+  offset: 0, 0
+  index: -1
+node3
+  rotate: false
+  xy: 936, 576
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+node4
+  rotate: false
+  xy: 936, 592
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+node5
+  rotate: false
+  xy: 414, 7
+  size: 25, 31
+  orig: 25, 31
+  offset: 0, 0
+  index: -1
+red_circle_light
+  rotate: false
+  xy: 821, 7
+  size: 66, 66
+  orig: 66, 66
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 889, 23
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+text
+  rotate: false
+  xy: 414, 451
+  size: 520, 176
+  orig: 520, 176
+  offset: 0, 0
+  index: -1
+text_thua
+  rotate: true
+  xy: 821, 75
+  size: 374, 124
+  orig: 374, 124
+  offset: 0, 0
+  index: -1

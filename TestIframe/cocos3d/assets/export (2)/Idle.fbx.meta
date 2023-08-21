@@ -1,0 +1,81 @@
+{
+  "ver": "2.3.1",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "54921e99-5f94-4651-aeaf-f6fed56b21d7",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "c2696": {
+      "importer": "gltf-animation",
+      "uuid": "54921e99-5f94-4651-aeaf-f6fed56b21d7@c2696",
+      "displayName": "",
+      "id": "c2696",
+      "name": "Idle.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 2,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 2
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    },
+    "503de": {
+      "importer": "gltf-scene",
+      "uuid": "54921e99-5f94-4651-aeaf-f6fed56b21d7@503de",
+      "displayName": "",
+      "id": "503de",
+      "name": "Idle.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "animationImportSettings": [
+      {
+        "name": "Take 001",
+        "duration": 2,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "Idle",
+            "from": 0,
+            "to": 2,
+            "wrapMode": 2
+          }
+        ]
+      }
+    ],
+    "redirect": "54921e99-5f94-4651-aeaf-f6fed56b21d7@503de",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "54921e99-5f94-4651-aeaf-f6fed56b21d7@503de"
+      ]
+    }
+  }
+}

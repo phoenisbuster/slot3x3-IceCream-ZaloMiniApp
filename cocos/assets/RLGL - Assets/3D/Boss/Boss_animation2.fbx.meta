@@ -1,0 +1,81 @@
+{
+  "ver": "2.3.1",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "288d2fc0-1208-41fa-879c-a13dbbe1951a",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "19911": {
+      "importer": "gltf-scene",
+      "uuid": "288d2fc0-1208-41fa-879c-a13dbbe1951a@19911",
+      "displayName": "",
+      "id": "19911",
+      "name": "Boss_animation2.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9df0b": {
+      "importer": "gltf-animation",
+      "uuid": "288d2fc0-1208-41fa-879c-a13dbbe1951a@9df0b",
+      "displayName": "",
+      "id": "9df0b",
+      "name": "turn_idle.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 2,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 1
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "animationImportSettings": [
+      {
+        "name": "Take 001",
+        "duration": 1,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "turn_idle",
+            "from": 0,
+            "to": 1,
+            "wrapMode": 2
+          }
+        ]
+      }
+    ],
+    "redirect": "288d2fc0-1208-41fa-879c-a13dbbe1951a@19911",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "288d2fc0-1208-41fa-879c-a13dbbe1951a@19911"
+      ]
+    }
+  }
+}

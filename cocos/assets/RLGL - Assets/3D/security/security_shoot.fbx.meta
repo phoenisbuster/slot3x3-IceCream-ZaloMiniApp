@@ -1,0 +1,81 @@
+{
+  "ver": "2.3.1",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "1245401f-2492-4828-bf35-b26e909c08df",
+  "files": [
+    "__original-animation-0.cconb"
+  ],
+  "subMetas": {
+    "63ab1": {
+      "importer": "gltf-animation",
+      "uuid": "1245401f-2492-4828-bf35-b26e909c08df@63ab1",
+      "displayName": "",
+      "id": "63ab1",
+      "name": "Shoot.animation",
+      "userData": {
+        "gltfIndex": 0,
+        "wrapMode": 1,
+        "sample": 30,
+        "span": {
+          "from": 0,
+          "to": 1
+        },
+        "events": []
+      },
+      "ver": "1.0.16",
+      "imported": true,
+      "files": [
+        ".cconb"
+      ],
+      "subMetas": {}
+    },
+    "32ea5": {
+      "importer": "gltf-scene",
+      "uuid": "1245401f-2492-4828-bf35-b26e909c08df@32ea5",
+      "displayName": "",
+      "id": "32ea5",
+      "name": "security_shoot.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "animationImportSettings": [
+      {
+        "name": "Take 001",
+        "duration": 1,
+        "fps": 30,
+        "splits": [
+          {
+            "name": "Shoot",
+            "from": 0,
+            "to": 1,
+            "wrapMode": 1
+          }
+        ]
+      }
+    ],
+    "redirect": "1245401f-2492-4828-bf35-b26e909c08df@32ea5",
+    "assetFinder": {
+      "meshes": [],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "1245401f-2492-4828-bf35-b26e909c08df@32ea5"
+      ]
+    }
+  }
+}

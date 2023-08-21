@@ -1,0 +1,127 @@
+{
+  "ver": "2.3.1",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc",
+  "files": [],
+  "subMetas": {
+    "6ddfc": {
+      "importer": "gltf-mesh",
+      "uuid": "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@6ddfc",
+      "displayName": "",
+      "id": "6ddfc",
+      "name": "Human1.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "438fe": {
+      "importer": "gltf-skeleton",
+      "uuid": "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@438fe",
+      "displayName": "",
+      "id": "438fe",
+      "name": "UnnamedSkeleton.skeleton",
+      "userData": {
+        "gltfIndex": 0,
+        "jointsLength": 39
+      },
+      "ver": "1.0.1",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d20e9": {
+      "importer": "texture",
+      "uuid": "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@d20e9",
+      "displayName": "",
+      "id": "d20e9",
+      "name": "file1.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": false,
+        "imageUuidOrDatabaseUri": "db://assets/export (2)/Char_001.png"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "99b28": {
+      "importer": "gltf-material",
+      "uuid": "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@99b28",
+      "displayName": "",
+      "id": "99b28",
+      "name": "Char_001_m1.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "5c4e1": {
+      "importer": "gltf-scene",
+      "uuid": "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@5c4e1",
+      "displayName": "",
+      "id": "5c4e1",
+      "name": "Human.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "file1",
+        "uri": "db://assets/export (2)/Char_001.png"
+      }
+    ],
+    "fbx": {
+      "smartMaterialEnabled": true
+    },
+    "redirect": "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@5c4e1",
+    "assetFinder": {
+      "meshes": [
+        "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@6ddfc"
+      ],
+      "skeletons": [
+        "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@438fe"
+      ],
+      "textures": [
+        "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@d20e9"
+      ],
+      "materials": [
+        "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@99b28"
+      ],
+      "scenes": [
+        "e7b9476d-c867-4ac7-8ef0-0552cda7fbfc@5c4e1"
+      ]
+    }
+  }
+}

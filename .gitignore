@@ -1,0 +1,7 @@
+
+*.json
+cocos/profiles/v2/packages/scene.json
+cocos/profiles/v2/packages/preview.json
+cocos/profiles/v2/packages/scene.json
+cocos/profiles/v2/packages/preview.json
+.DS_Store
