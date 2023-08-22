@@ -3,16 +3,9 @@ import { Connector } from '../Base/Connector';
 import { ServerConnect } from './ServerConnect';
 import { UserInfo } from './UserInfo';
 import { ChannelManager } from './ChannelManager';
-import { GameMenu } from '../UIScript/GameMenu';
-import { LobbyPopup } from '../Popup/LobbyPopup';
 import { RoomInfo } from './RoomInfo';
 import { GamePlayUI } from '../Popup/GamePlayUI';
-import { LightState, PlayerState } from '../GameState';
-import { MovingCharacter } from '../MovingCharacter';
-import { RemotePlayer } from '../RemotePlayer';
-import { LeaderBoard } from '../Popup/LeaderBoard';
 import { ConsoleHelper } from '../Base/ConsoleHelper';
-import { MapComp } from '../MapComp';
 const { ccclass, property } = _decorator;
 
 export enum WS_Event
@@ -56,8 +49,6 @@ export class WebsocketConnect extends Component
 
     @property(Node)
     GameMenuNode: Node = null;
-
-    private GameMenu: GameMenu = null;
     
     static getInstance(): WebsocketConnect 
     {
@@ -128,8 +119,8 @@ export class WebsocketConnect extends Component
         let room = new RoomInfo(payload.name, payload.id, payload.hostUserAppId, 1, payload.maxUser);
 
         WebsocketConnect.getInstance().logToZalo("zzzzzz: " + payload.start + "  -- " + JSON.stringify(payload))
-        if(payload.start!=null)
-            MapComp.START_CACHED = payload.start;
+        // if(payload.start!=null)
+            // MapComp.START_CACHED = payload.start;
         ChannelManager.setRoomInfo(room);
         // console.log("CHECK: " + JSON.stringify(ChannelManager.getRoomInfo()));
     }
@@ -157,9 +148,9 @@ export class WebsocketConnect extends Component
         });
         this.scheduleOnce(()=>
         {
-            LobbyPopup.eventTarget.emit(LobbyPopup.AddNewPlayer, ListUser);
+            // LobbyPopup.eventTarget.emit(LobbyPopup.AddNewPlayer, ListUser);
         }, 1.5);
-        LobbyPopup.InitPlayers = ListUser;
+        // LobbyPopup.InitPlayers = ListUser;
     }
 
     roomCountDownListen: Function = (payload:any) =>
@@ -170,8 +161,8 @@ export class WebsocketConnect extends Component
             method: WS_Event.roomCountDown,
             ...payload,
         };
-        MovingCharacter.moveSpeed = payload.speed;
-        LobbyPopup.eventTarget.emit(GameMenu.PlayGameClick);
+        // MovingCharacter.moveSpeed = payload.speed;
+        // LobbyPopup.eventTarget.emit(GameMenu.PlayGameClick);
     }
 
     gameStartListen: Function = (payload:any) =>
@@ -205,13 +196,13 @@ export class WebsocketConnect extends Component
     playerMoveListen: Function = (payload:any) =>
     {
         console.log("Listen Player Move Event", payload);
-        RemotePlayer.eventTarget.emit(RemotePlayer.RECEIVE_MOVE_SIGNAL, payload);
+        // RemotePlayer.eventTarget.emit(RemotePlayer.RECEIVE_MOVE_SIGNAL, payload);
     }
 
     playerEndMoveListen: Function = (payload:any) =>
     {
         console.log("Listen Player End Move Event", payload);
-        RemotePlayer.eventTarget.emit(RemotePlayer.RECEIVE_END_MOVE_SIGNAL, payload);
+        // RemotePlayer.eventTarget.emit(RemotePlayer.RECEIVE_END_MOVE_SIGNAL, payload);
     }
 
     userEndMoveEvent: Function = (payload:any) =>
@@ -228,27 +219,27 @@ export class WebsocketConnect extends Component
     {
         console.log("Listen Room Red Off", payload);
         //this.TestMsg.string = "" + payload;
-        GamePlayUI.eventTarget.emit(GamePlayUI.RECEIVE_LIGHT_SIGNAL, LightState.RedLight)
+        // GamePlayUI.eventTarget.emit(GamePlayUI.RECEIVE_LIGHT_SIGNAL, LightState.RedLight)
     } 
 
     roomRedOffListen : Function = (payload:any) =>
     {
         console.log("Listen Room Red Off", payload);
         //this.TestMsg.string = "" + payload;
-        GamePlayUI.eventTarget.emit(GamePlayUI.RECEIVE_LIGHT_SIGNAL, LightState.GreenLight)
+        // GamePlayUI.eventTarget.emit(GamePlayUI.RECEIVE_LIGHT_SIGNAL, LightState.GreenLight)
     }
 
     playerDeadListen : Function = (payload:any) =>
     {
         console.log("Listen Player Dead", payload + " - " + ChannelManager.getUserInfo().getID());
-        GamePlayUI.eventTarget.emit(GamePlayUI.FINISH_GAME, PlayerState.Death, payload.toString());
-        RemotePlayer.eventTarget.emit(RemotePlayer.LISTEN_DEAD_SIGNAL, payload)
+        // GamePlayUI.eventTarget.emit(GamePlayUI.FINISH_GAME, PlayerState.Death, payload.toString());
+        // RemotePlayer.eventTarget.emit(RemotePlayer.LISTEN_DEAD_SIGNAL, payload)
     }
 
     userFinishListen : Function = (payload:any) =>
     {
         console.log("Listen User Finish", payload + " - " + ChannelManager.getUserInfo().getID());
-        GamePlayUI.eventTarget.emit(GamePlayUI.FINISH_GAME, PlayerState.Death, payload.toString());
+        // GamePlayUI.eventTarget.emit(GamePlayUI.FINISH_GAME, PlayerState.Death, payload.toString());
     }
 
     finishEvent: Function = (payload:any) =>
@@ -265,7 +256,7 @@ export class WebsocketConnect extends Component
             let user = new UserInfo(element.index, element.userName, element.userAppId, element.userAvatar);
             ListUser.push(user);
         });
-        LeaderBoard.eventTarget.emit(LeaderBoard.SHOW_LEADERBOARD, ListUser);
+        // LeaderBoard.eventTarget.emit(LeaderBoard.SHOW_LEADERBOARD, ListUser);
     }
 
     initEventListener()

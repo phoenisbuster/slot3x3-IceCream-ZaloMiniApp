@@ -2,7 +2,7 @@ import { _decorator, Component, Node, EventTarget, Sprite, Director, director } 
 import PopUpInstance from '../Base/PopUpInstance';
 import SoundManager from '../Base/SoundManager';
 import { getSoundName, SoundName } from '../Base/SoundName';
-import { GameMenu } from '../UIScript/GameMenu';
+import { GameManager } from '../Manager/GameManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('LoadingPopup')
@@ -12,27 +12,26 @@ export class LoadingPopup extends PopUpInstance {
 
     @property(Sprite)
     Logo: Sprite = null;
+
+    private onLoadingComplete: Function = null;
     
-    onShow(data)
+    onShow(data: Function)
     {
-        LoadingPopup.eventTarget.on(GameMenu.LoadingComplete, this.onClickClose, this);
-        LoadingPopup.eventTarget.emit(GameMenu.LoadingComplete);
+        LoadingPopup.eventTarget.on(GameManager.LoadingComplete, this.onClickClose, this);
+        
+        this.onLoadingComplete = data;
+        this.scheduleOnce(this.onClickClose, 1);
     }
 
     onDisable()
     {
-        LoadingPopup.eventTarget.off(GameMenu.LoadingComplete, this.onClickClose, this);
+        LoadingPopup.eventTarget.off(GameManager.LoadingComplete, this.onClickClose, this);
     }
 
     onClickClose()
     {
-        this.scheduleOnce(this.LoadMainScene, 1);
-        //this.hidePopup()
-    }
-
-    private LoadMainScene()
-    {
-        director.loadScene("main");
+        this.onLoadingComplete && this.onLoadingComplete();
+        this.hidePopup();
     }
 }
 

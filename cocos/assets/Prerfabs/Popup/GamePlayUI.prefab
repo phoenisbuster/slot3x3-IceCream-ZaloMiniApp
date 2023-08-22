@@ -167,10 +167,7 @@
       "b": 255,
       "a": 0
     },
-    "_spriteFrame": {
-      "__uuid__": "c3f6d66a-8c24-4902-8d1f-42eae20de908@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_fillType": 0,
     "_sizeMode": 0,
@@ -398,10 +395,7 @@
       "b": 255,
       "a": 98
     },
-    "_spriteFrame": {
-      "__uuid__": "83211058-9b5e-41c4-99ef-a866dca9230f@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_fillType": 0,
     "_sizeMode": 1,
@@ -544,7 +538,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56.91,
+      "width": 47.95,
       "height": 75.6
     },
     "_anchorPoint": {
@@ -576,14 +570,11 @@
     "_fontSize": 66,
     "_maxWidth": 0,
     "_fontFamily": "Tahoma",
-    "_font": {
-      "__uuid__": "6553397e-cf67-42e0-98f4-db478b689f0a",
-      "__expectedType__": "cc.TTFFont"
-    },
-    "_isSystemFontUsed": false,
+    "_font": null,
+    "_isSystemFontUsed": true,
     "_userDefinedFont": {
-      "__uuid__": "6553397e-cf67-42e0-98f4-db478b689f0a",
-      "__expectedType__": "cc.TTFFont"
+      "__uuid__": "87c7bea4-faed-46d2-b01d-8d3f4dfb4666",
+      "__expectedType__": "cc.BitmapFont"
     },
     "_cacheMode": 0,
     "_imageAtlas": null,
@@ -652,13 +643,10 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": {
-      "__uuid__": "a5e7bbdf-0b14-46e4-a434-dcc738af05bd@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -781,13 +769,10 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": {
-      "__uuid__": "26016c07-23de-4cef-b8a1-87548a15dd2c@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -1266,12 +1251,9 @@
     "_defaultCacheMode": 0,
     "_debugBones": false,
     "_debugSlots": false,
-    "_skeletonData": {
-      "__uuid__": "b41241b1-00a3-4ebb-9fb1-2481b9953816",
-      "__expectedType__": "sp.SkeletonData"
-    },
+    "_skeletonData": null,
     "_premultipliedAlpha": true,
-    "defaultSkin": "default",
+    "defaultSkin": "",
     "defaultAnimation": "",
     "_enableBatch": false,
     "_sockets": [],
@@ -1572,14 +1554,8 @@
     "WinLoseAnim": {
       "__id__": 53
     },
-    "GreenLightSprite": {
-      "__uuid__": "26016c07-23de-4cef-b8a1-87548a15dd2c@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "RedLightSprite": {
-      "__uuid__": "0d85f78c-5dd1-4c44-bbea-055cd261fd71@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "GreenLightSprite": null,
+    "RedLightSprite": null,
     "Msg": {
       "__id__": 59
     },

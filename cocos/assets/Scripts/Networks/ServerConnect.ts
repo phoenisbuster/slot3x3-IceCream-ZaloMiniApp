@@ -1,13 +1,9 @@
 import { _decorator, Component, director } from 'cc';
 import { RoomInfo } from '../Networks/RoomInfo';
-import { CreateRoomPopup } from '../Popup/CreateRoomPopup';
-import { GameMenu } from '../UIScript/GameMenu';
 import LocalStorageManager from '../Base/LocalStorageManager';
-import { LobbyPopup } from '../Popup/LobbyPopup';
 import { WebsocketConnect } from './WebsocketConnect';
 import { ChannelManager } from './ChannelManager';
 import { DEV_VER } from '../Base/helper';
-import { MapComp } from '../MapComp';
 import { Connector, VITE_CDP_ENDPOINT, VITE_ENDPOINT } from '../Base/Connector';
 const { ccclass, property } = _decorator;
 
@@ -157,10 +153,6 @@ export class ServerConnect extends Component
 
     static DataExecution(api_type: API_TYPE, data: any, onComplete: (input: any) => void = null): any
     {
-        // WebsocketConnect.getInstance().logToZalo("zzz: " + api_type + "   " + JSON.stringify(data))
-        if(data!=null && data.start!=null)
-            MapComp.START_CACHED = data.start;
-
         switch(api_type)
         {
             case API_TYPE.CreateRoom:
@@ -168,7 +160,7 @@ export class ServerConnect extends Component
                 ChannelManager.setRoomInfo(room);
                 console.log("ADVANCE LOG: " + JSON.stringify(ChannelManager.getUserInfo()))
                 ChannelManager.setPlayersInfo(ChannelManager.getUserInfo());
-                CreateRoomPopup.eventTarget.emit(GameMenu.CreateRoomOK, room);
+                // CreateRoomPopup.eventTarget.emit(GameMenu.CreateRoomOK, room);
                 WebsocketConnect.getInstance().connectWebSocKet(data.id);
                
                 WebsocketConnect.getInstance().screenLog(" From ServerConnect: " + JSON.stringify(ChannelManager.getRoomInfo()));
@@ -178,7 +170,7 @@ export class ServerConnect extends Component
                 }
                 break;
             case API_TYPE.JoinLink:
-                LobbyPopup.QRCodeLink = data + DEV_VER;
+                // LobbyPopup.QRCodeLink = data + DEV_VER;
                 if(onComplete)
                 {
                     onComplete(null);
