@@ -1,58 +1,55 @@
-import { _decorator, Button, Component, EventKeyboard, EventTarget, Game, Input, input, KeyCode, Label, Light, log, Node, RichText, sp, Sprite, SpriteFrame } from 'cc';
+import { _decorator, Button, CCInteger, Component, EventKeyboard, EventTarget, Game, Input, input, KeyCode, Label, Light, log, Node, RichText, sp, Sprite, SpriteFrame } from 'cc';
 import PopUpInstance from '../Base/PopUpInstance';
 import LocalStorageManager from '../Base/LocalStorageManager';
-import { ChannelManager } from '../Networks/ChannelManager';
 import SoundManager from '../Base/SoundManager';
 import { getSoundName, SoundName } from '../Base/SoundName';
+import { GameManager } from '../Manager/GameManager';
 const { ccclass, property } = _decorator;
+
+export interface GamePlayUIData
+{
+    callback: ()=>void,
+    turn: number
+}
 
 @ccclass('GamePlayUI')
 export class GamePlayUI extends PopUpInstance 
 {
-    @property(RichText)
-    TimeText: RichText = null;
-
-    @property(Sprite)
-    Light: Sprite = null;
-    
     @property(Button)
-    ChangeLight: Button = null;
+    backBtn: Button = null;
 
-    @property(sp.Skeleton)
-    WinLoseAnim: sp.Skeleton = null;
-
-    @property(SpriteFrame)
-    GreenLightSprite: SpriteFrame = null;
-
-    @property(SpriteFrame)
-    RedLightSprite: SpriteFrame = null;
+    @property(Button)
+    rollBtn: Button = null;
 
     @property(Label)
-    Msg: Label = null;
+    turnLabel: Label = null;
+
+    @property(CCInteger)
+    defaultTurnNumber: number = 10;
+
+    private onCallBackComplete: Function = null;
+
+    private curTurnNumber = 0;
+
+    private startSpin: boolean = false;
+    private isSpinning: boolean = false;
+    private spinFinish: boolean = false;
 
     private isWin = false;
-
-    public static eventTarget: EventTarget = new EventTarget();
-    public static CHANGE_LIGHT: string = "ChangeLightSignal";
-    public static RECEIVE_LIGHT_SIGNAL: string = "LightSignalFromServer";
-    public static TIME_COUNT: string = "TimeCount";
-    public static FINISH_GAME: string = "EndGame";
-
-    static Anim_Win: string = "win";
-    static Anim_Lose: string = "lose";
     
-    onShow(data)
+    onShow(data: GamePlayUIData)
     {
-        // log("Check ANIM Avalable " + this.WinLoseAnim.node.active);
-        // this.WinLoseAnim.enabled = false; 
+        this.onCallBackComplete = data.callback;
+        this.curTurnNumber = data.turn > 0? data.turn : this.defaultTurnNumber;
 
-        // this.Msg.string = JSON.stringify(ChannelManager.getRoomInfo());
-        // this.Msg.string += JSON.stringify(ChannelManager.getUserInfo());
+        this.turnLabel.string = "" + this.curTurnNumber;
+        GameManager.getInstance().uiController.changeTurnNumber(this.curTurnNumber);
+    }
 
-        // ChannelManager.getPlayersInfo().forEach(ele=>
-        // {
-        //     this.Msg.string += JSON.stringify(ele);
-        // })
+    onClickClose()
+    {
+        this.onCallBackComplete && this.onCallBackComplete();
+        this.hidePopup();
     }
 
     onEnable()
@@ -65,13 +62,55 @@ export class GamePlayUI extends PopUpInstance
         input.off(Input.EventType.KEY_DOWN, this.onKeyPress, this);
     }
 
-    setAnimation(skeleton: sp.Skeleton = null, animationName: string = "animation", loop: boolean = false, startTime: number = 0, timeScale: number = 1) 
+    update()
+    {
+        
+    }
+
+    /////////////////////////////////////////// BUTTON CALL /////////////////////////////////////////
+    onClickBackBtn()
+    {
+        this.onClickClose();
+    }
+
+    onClickRoll()
+    {
+        if(this.curTurnNumber <= 0)
+            return;
+
+        if(this.isSpinning)
+            return;
+
+        this.curTurnNumber--;
+        this.turnLabel.string = "" + this.curTurnNumber;
+        GameManager.getInstance().uiController.changeTurnNumber(this.curTurnNumber);
+        GameManager.getInstance().uiController.onRollBtnClickAnim();
+
+        this.startSpin = true;
+        this.rollBtn.interactable = false;
+
+    }
+
+    /////////////////////////////////////////// SPINE ANIM /////////////////////////////////////////
+    private setAnimation(skeleton: sp.Skeleton = null, 
+        animationName: string = "animation", 
+        loop: boolean = false, 
+        startTime: number = 0, 
+        timeScale: number = 1, 
+        callback: ()=>void = null) 
     {
         if(!skeleton)
         {
-            skeleton = this.WinLoseAnim;
+            // skeleton = this.girlAnim;
+            return;
         }
         let state = skeleton.setAnimation(0, animationName, loop) as sp.spine.TrackEntry;
+
+        skeleton.setCompleteListener((x: sp.spine.TrackEntry)=>
+        {
+            callback && callback();
+        });
+
         if(state)
         { 
             state.animationStart = startTime;
@@ -79,49 +118,10 @@ export class GamePlayUI extends PopUpInstance
         skeleton.timeScale = timeScale;
     }
 
-    onClickChangeLight()
-    {
-        
-    }
-
-    onReceiveTimeUpdate(value: number)
-    {
-        this.TimeText.string = "<color=#fdff66>" + value.toString() + "</color>";
-    }
-
-    private PlayAnimEnding(isWin: boolean = false, disableAfterPlay: boolean = false)
-    {
-        if(ChannelManager.isViewer()) return;
-        this.WinLoseAnim.enabled = true;
-        let name = isWin? GamePlayUI.Anim_Win : GamePlayUI.Anim_Lose;
-        this.setAnimation(this.WinLoseAnim, name, false);
-        let sfx = isWin? SoundName.SfxWin : SoundName.SfxLose;
-        SoundManager.getInstance().play(getSoundName(sfx));
-
-        if(disableAfterPlay)
-        {
-            this.scheduleOnce(()=>
-            {
-                this.WinLoseAnim.enabled = false;
-            }, 3);
-        }
-    }
-
+    ///////////////////////////////////////// For Debug Only ///////////////////////////////
     private onKeyPress(event: EventKeyboard)
     {
-        if(event.keyCode == KeyCode.SPACE)
-        {
-            this.PlayAnimEnding(true, true);
-        }
-        else if(event.keyCode == KeyCode.SHIFT_LEFT)
-        {
-            this.PlayAnimEnding(false, true);
-        }
-    }
-
-    update()
-    {
-        //this.onReceiveGameState(GameState.playerState);
+        
     }
 }
 

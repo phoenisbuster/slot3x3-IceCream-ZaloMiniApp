@@ -1,0 +1,83 @@
+
+anim_btn_spin.png
+size: 963,406
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+FX_a
+  rotate: true
+  xy: 2, 159
+  size: 245, 233
+  orig: 245, 233
+  offset: 0, 0
+  index: -1
+frame
+  rotate: false
+  xy: 469, 171
+  size: 230, 233
+  orig: 230, 233
+  offset: 0, 0
+  index: -1
+frame_in
+  rotate: false
+  xy: 359, 6
+  size: 160, 161
+  orig: 160, 161
+  offset: 0, 0
+  index: -1
+frame_in base
+  rotate: false
+  xy: 521, 8
+  size: 160, 161
+  orig: 160, 161
+  offset: 0, 0
+  index: -1
+frame_in_light
+  rotate: false
+  xy: 701, 213
+  size: 190, 191
+  orig: 190, 191
+  offset: 0, 0
+  index: -1
+frame_in_light_out
+  rotate: true
+  xy: 770, 21
+  size: 190, 191
+  orig: 190, 191
+  offset: 0, 0
+  index: -1
+frame_left
+  rotate: false
+  xy: 2, 42
+  size: 219, 115
+  orig: 219, 115
+  offset: 0, 0
+  index: -1
+light_tai
+  rotate: false
+  xy: 2, 2
+  size: 36, 38
+  orig: 36, 38
+  offset: 0, 0
+  index: -1
+muiten
+  rotate: false
+  xy: 223, 23
+  size: 134, 134
+  orig: 134, 134
+  offset: 0, 0
+  index: -1
+sd
+  rotate: false
+  xy: 237, 169
+  size: 230, 235
+  orig: 230, 235
+  offset: 0, 0
+  index: -1
+tai
+  rotate: false
+  xy: 683, 79
+  size: 85, 90
+  orig: 85, 90
+  offset: 0, 0
+  index: -1

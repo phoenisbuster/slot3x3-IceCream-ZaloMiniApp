@@ -430,7 +430,7 @@
       "__id__": 10
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 18
@@ -553,7 +553,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "frame_login",
+    "_name": "frame_loading",
     "_objFlags": 0,
     "_parent": {
       "__id__": 10
@@ -821,7 +821,7 @@
       "__id__": 10
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 36

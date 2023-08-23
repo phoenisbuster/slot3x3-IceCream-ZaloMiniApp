@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, EventTarget, Button, RichText, EditBox } from 'cc';
+import { _decorator, Component, Node, EventTarget, Button, RichText, EditBox, Sprite } from 'cc';
 import PopUpInstance from '../Base/PopUpInstance';
 import SoundManager from '../Base/SoundManager';
 import { getSoundName, SoundName } from '../Base/SoundName';
@@ -27,6 +27,7 @@ export class GameInfoPopup extends PopUpInstance {
     onShow(data: Function)
     {
         this.onCallBackComplete = data;
+        this.checkEnablePlayGameBtn();
     }
 
     onClickClose()
@@ -37,24 +38,45 @@ export class GameInfoPopup extends PopUpInstance {
 
     onEditNameComplete()
     {
-        this.nameInput.placeholder = this.nameInput.string;
         this.username = this.nameInput.string;
 
-        this.nameInput.string = "";
+        this.checkEnablePlayGameBtn();
     }
 
     onEditPhoneComplete()
     {
-        this.phoneInput.placeholder = this.phoneInput.string;
         this.phone = this.phoneInput.string;
 
-        this.phoneInput.string = "";
+        this.checkEnablePlayGameBtn();
     }
 
     onPlayGameClick()
     {
+        if(this.username == "" || this.phone == "")
+            return;
+        
         GameManager.getInstance().setUserInfo(this.username, this.phone);
         this.onClickClose();
+    }
+
+    private checkEnablePlayGameBtn()
+    {
+        if(this.username != "" && this.phone != "")
+            this.enablePlayGameBtn();
+        else
+            this.disablePlayGameBtn();
+    }
+
+    private enablePlayGameBtn()
+    {
+        this.playGameBtn.interactable = true;
+        // this.playGameBtn.getComponent(Sprite).grayscale = false;
+    }
+
+    private disablePlayGameBtn()
+    {
+        this.playGameBtn.interactable = false;
+        // this.playGameBtn.getComponent(Sprite).grayscale = true;
     }
 }
 

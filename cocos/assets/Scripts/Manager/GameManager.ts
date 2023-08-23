@@ -4,10 +4,7 @@ import { PopupName } from '../Base/PopupName';
 import UIManager from '../Base/UIManager';
 import { GameInfoPopup } from '../Popup/GameInfoPopup';
 import { LoadingPopup } from '../Popup/LoadingPopup';
-import { RoomInfo } from '../Networks/RoomInfo';
-import { WebsocketConnect } from '../Networks/WebsocketConnect';
 import { ZaloConnection } from '../Networks/ZaloConnection';
-import { ChannelManager } from '../Networks/ChannelManager';
 import { GamePlayUI } from '../Popup/GamePlayUI';
 import { UIController } from './UIController';
 
@@ -83,11 +80,7 @@ export class GameManager extends Component
 
     start()
     {
-        if(ChannelManager.isViewer()) return;
         this.showLoadingPopup();
-
-        this.uiController.hideFrameBoard();
-        this.uiController.playGirlTalkAnim();
     }
 
     onEnable()
@@ -116,6 +109,8 @@ export class GameManager extends Component
 
     showLoadingPopup()
     {
+        this.uiController.loadingState();
+
         if(this.Loading)
         {
             this.Loading.showPopup();
@@ -124,7 +119,7 @@ export class GameManager extends Component
 
         var data = ()=>
         {
-            GameManager.getInstance().ShowGameInfo();
+            GameManager.getInstance().ShowGameInfo(false);
         }
         
         UIManager.getInstance().openPopup(
@@ -138,8 +133,10 @@ export class GameManager extends Component
         );
     }
 
-    ShowGameInfo()
+    ShowGameInfo(playAgain: boolean = false)
     {
+        this.uiController.getUserInfoState(playAgain);
+        
         if(this.GameInfo)
         {
             this.GameInfo.showPopup();
@@ -164,36 +161,31 @@ export class GameManager extends Component
 
     ShowMainGame()
     {
-        console.warn("WTF " + this.username + " : " + this.phone);
-        this.uiController.setFrameBoard(this.username, this.phone);
-        this.uiController.playGirlWinAnim();
-
-        this.scheduleOnce(()=>
+        this.uiController.getUserInfoFinish(this.username, this.phone);
+        
+        if(this.MainGame)
         {
-            this.uiController.hideFrameBoard();
-            this.ShowGameInfo();
-        }, 3);
+            this.MainGame.showPopup();
+            return;
+        }
         
-        // if(this.MainGame)
-        // {
-        //     this.MainGame.showPopup();
-        //     return;
-        // }
-        
-        // var data = ()=>
-        // {
-        //     GameManager.getInstance().ShowGameInfo();
-        // }
+        var data = {
+            callback: ()=>
+            {
+                GameManager.getInstance().ShowGameInfo(true);
+            },
+            turn: 5
+        }
 
-        // UIManager.getInstance().openPopup(
-        //     GamePlayUI, 
-        //     PopupName.GamePlay,
-        //     data,
-        //     (popupValue) =>
-        //     {
-        //         this.MainGame = popupValue;
-        //     }
-        // );
+        UIManager.getInstance().openPopup(
+            GamePlayUI, 
+            PopupName.GamePlay,
+            data,
+            (popupValue) =>
+            {
+                this.MainGame = popupValue;
+            }
+        );
     }
 
     public setRoomName(value: string)
@@ -213,7 +205,6 @@ export class GameManager extends Component
 
     public setUserInfo(name: string, phone: string)
     {
-        console.warn("??????");
         this.username = name;
         this.phone = phone;
 
