@@ -4,7 +4,12 @@ import LocalStorageManager from '../Base/LocalStorageManager';
 import SoundManager from '../Base/SoundManager';
 import { getSoundName, SoundName } from '../Base/SoundName';
 import { GameManager } from '../Manager/GameManager';
+import { SlotManager } from '../Manager/ShotMechanism/SlotManager';
+import { GameDefinedData } from '../Manager/GameDefinedData';
+
 const { ccclass, property } = _decorator;
+
+const { ResultItem } = GameDefinedData.getAllRef();
 
 export interface GamePlayUIData
 {
@@ -27,6 +32,8 @@ export class GamePlayUI extends PopUpInstance
     @property(CCInteger)
     defaultTurnNumber: number = 10;
 
+    private slotManager: SlotManager = null;
+
     private onCallBackComplete: Function = null;
 
     private curTurnNumber = 0;
@@ -36,20 +43,16 @@ export class GamePlayUI extends PopUpInstance
     private spinFinish: boolean = false;
 
     private isWin = false;
-    
-    onShow(data: GamePlayUIData)
-    {
-        this.onCallBackComplete = data.callback;
-        this.curTurnNumber = data.turn > 0? data.turn : this.defaultTurnNumber;
 
-        this.turnLabel.string = "" + this.curTurnNumber;
-        GameManager.getInstance().uiController.changeTurnNumber(this.curTurnNumber);
+    onLoad() 
+    {
+        this.slotManager = this.getComponentInChildren(SlotManager);
+        this.slotManager?.event?.on("finish", this.onFinishRoll, this);
     }
 
-    onClickClose()
+    start() 
     {
-        this.onCallBackComplete && this.onCallBackComplete();
-        this.hidePopup();
+        this.slotManager?.initData();
     }
 
     onEnable()
@@ -62,9 +65,27 @@ export class GamePlayUI extends PopUpInstance
         input.off(Input.EventType.KEY_DOWN, this.onKeyPress, this);
     }
 
-    update()
+    onDestroy() 
     {
-        
+        this.slotManager?.event?.off("finish", this.onFinishRoll, this);
+    }
+    
+    onShow(data: GamePlayUIData)
+    {
+        if(!this.onCallBackComplete)
+            this.onCallBackComplete = data.callback;
+
+        this.curTurnNumber = data.turn > 0? data.turn : this.defaultTurnNumber;
+        this.turnLabel.string = "" + this.curTurnNumber;
+        GameManager.getInstance().changeTurn(this.curTurnNumber, false);
+
+        this.resetState();
+    }
+
+    onClickClose()
+    {
+        this.onCallBackComplete && this.onCallBackComplete();
+        this.hidePopup();
     }
 
     /////////////////////////////////////////// BUTTON CALL /////////////////////////////////////////
@@ -83,12 +104,68 @@ export class GamePlayUI extends PopUpInstance
 
         this.curTurnNumber--;
         this.turnLabel.string = "" + this.curTurnNumber;
-        GameManager.getInstance().uiController.changeTurnNumber(this.curTurnNumber);
-        GameManager.getInstance().uiController.onRollBtnClickAnim();
+        GameManager.getInstance().changeTurn(this.curTurnNumber, true);
 
+        this.onStartRoll();
+    }
+
+    /////////////////////////////////////////// Game State /////////////////////////////////////////
+    private onStartRoll()
+    {
         this.startSpin = true;
+        this.isSpinning = false;
+        this.spinFinish = false;
+
         this.rollBtn.interactable = false;
 
+        this.slotManager?.spin();
+    }
+
+    private onSpinning()
+    {
+        this.startSpin = false;
+        this.isSpinning = true;
+        this.spinFinish = false;
+    }
+
+    private onFinishRoll(result: Map<number, InstanceType<typeof ResultItem>>[])
+    {
+        this.startSpin = false;
+        this.isSpinning = false;
+        this.spinFinish = true;
+
+        GameManager.getInstance().onEndTurn(result, ()=>
+        {
+            this.onAfterFinishRoll();
+        });
+    }
+
+    private onAfterFinishRoll()
+    {
+        this.scheduleOnce(()=>
+        {
+            console.warn("FINISH STATE");
+            this.resetState();
+        }, 1);
+    }
+
+    private resetState()
+    {
+        this.startSpin = false;
+        this.isSpinning = false;
+        this.spinFinish = false;
+
+        if(this.curTurnNumber == 0)
+        {
+            this.rollBtn.interactable = false;
+            this.backBtn.interactable = false;
+            GameManager.getInstance().onEndGame();
+        }
+        else
+        {
+            this.backBtn.interactable = true;
+            this.rollBtn.interactable = true;
+        }
     }
 
     /////////////////////////////////////////// SPINE ANIM /////////////////////////////////////////

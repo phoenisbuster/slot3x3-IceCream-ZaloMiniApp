@@ -1,41 +1,9 @@
 import { _decorator, CCFloat, Component, Label, Node, Scheduler, sp, Sprite, tween, Tween, UIOpacity, Vec2, Vec3 } from 'cc';
+import { GameDefinedData } from './GameDefinedData';
+
 const { ccclass, property } = _decorator;
 
-enum GirlAnimName
-{
-    idle = "idle",
-    talk = "talk",
-    win = "win"
-}
-
-enum BtnSpinAnimName
-{
-    idle1 = "Idle1",
-    idle2 = "Idle2",
-    in = "in",
-    out = "out",
-    touch = "touch"
-}
-
-enum ChatBoxContent
-{
-    loading = "Game đang tải vui lòng đợi chút xíu, xin cảm ơn!!!",
-    loadingDone = "Tải xong rồi, vào game thôi",
-    getInfo = "Trước tiên cho mình xin tên và số điện thoại của bạn nhé",
-    playgame = "Chúc bạn chơi game vui vẻ",
-
-    win = "Chúc mùng bạn đã trúng thưởng",
-    out = "Xin lỗi nhưng hết lượt qya mất rồi",
-
-    chat1 = "Test",
-    chat2 = "Hôm nay có vẻ như bản không may mắn lắm thì phải :v",
-    chat3 = "????",
-    chat4 = "Ăn may đấy",
-    chat5 = "Nói thật bạn xui vl",
-
-    nameInvalid = "Tên của bạn không hợp lệ",
-    phoneInvalid = "Số điện thoại của bạn không hợp lệ"
-}
+const { GirlAnimName, BtnSpinAnimName, ChatBoxContent} = GameDefinedData.getAllRef();
 
 @ccclass('UIController')
 export class UIController extends Component 
@@ -82,7 +50,7 @@ export class UIController extends Component
     private strIdx: number = 0;
     private strTemp: string = "";
     
-    start() 
+    protected start() 
     {
         console.log("Anim Name " + this.currentAnimName);
         this.loadingState();
@@ -104,6 +72,7 @@ export class UIController extends Component
         this.blackBG.node.active = true;
         this.showHideTurnDisplay(false);
         this.showHideBackBtnSprite(false);
+        this.resetFrameBoardContent();
         
         this.showhideChatBox(true);
         
@@ -164,8 +133,11 @@ export class UIController extends Component
         this.setChatBoxConentWithAnim(ChatBoxContent.win, 0.5);
     }
 
-    outOfTurnState()
+    outOfTurnState(onComplete: ()=>void = null)
     {
+        this.showHideTurnDisplay(false);
+        this.showHideBackBtnSprite(false);
+        
         var callback = ()=>
         {
             this.playGirlIdleAnim();
@@ -179,7 +151,7 @@ export class UIController extends Component
         this.playBTnSpinInOutAnim(false, callback);
 
         this.showhideChatBox(true);
-        this.setChatBoxConentWithAnim(ChatBoxContent.out, 0.5);
+        this.setChatBoxConentWithAnim(ChatBoxContent.out, 0.5, onComplete);
     }
 
     ///////////////////////////////////// CHANGE UI DISPLAY /////////////////////////////////////////
@@ -207,11 +179,11 @@ export class UIController extends Component
     {
         this.playBTnSpinTouchAnim(false, ()=>
         {
-            this.onSpinFinish();
+            this.onSpinAnimFinish();
         });
     }
 
-    onSpinFinish()
+    onSpinAnimFinish()
     {
         this.playBTnSpinIdleAnim(false, true);
     }
@@ -268,7 +240,12 @@ export class UIController extends Component
             {
                 console.warn("Set Chat Box Content Finish");
                 this.chatBoxLabel.string = content;
-                callback && callback();
+
+                this.scheduleOnce(()=>
+                {
+                    callback && callback();
+                }, 0.5);
+                
                 return;
             }
                 

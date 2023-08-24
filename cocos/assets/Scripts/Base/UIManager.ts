@@ -93,7 +93,7 @@ export default class UIManager extends Component {
         }
     }
 
-    private loadPopUpPrefab(type: typeof PopUpInstance, name: string, onComplete: (instance: PopUpInstance) => void, parent: Node = null) {
+    public loadPopUpPrefab(type: typeof PopUpInstance, name: string, onComplete: (instance: PopUpInstance) => void, parent: Node = null) {
         let self = UIManager._instance;
         let prefab = this.popupMap.get(name);
         const newNode = (instantiate(prefab) as unknown) as Node;
