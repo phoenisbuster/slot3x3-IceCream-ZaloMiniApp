@@ -1,4 +1,4 @@
-import { _decorator, Component, EventTarget, Node, SpriteFrame } from 'cc';
+import { _decorator, Component, EventTarget, Node, sp, SpriteFrame } from 'cc';
 import { ReelManager } from './ReelManager';
 import { GameDefinedData } from '../GameDefinedData';
 import { MyGameUtils } from '../../Base/MyGameUtils';
@@ -6,7 +6,7 @@ import { GameManager } from '../GameManager';
 
 const { ccclass, property } = _decorator;
 
-const { ResultItem } = GameDefinedData.getAllRef();
+const { ResultItem, RewardData } = GameDefinedData.getAllRef();
 
 
 @ccclass('SlotManager')
@@ -17,6 +17,9 @@ export class SlotManager extends Component
 
     @property([SpriteFrame])
     private blur_spriteFrameList: SpriteFrame[] = [];
+
+    @property([sp.SkeletonData])
+    private main_spineDataList: sp.SkeletonData[] = [];
 
     public event: EventTarget = new EventTarget();
 
@@ -35,7 +38,7 @@ export class SlotManager extends Component
     {
         this.reelManagerList.forEach((value)=>
         {
-            value.event.off("finish", this.receiveResult, this);
+            value?.event?.off("finish", this.receiveResult, this);
         });
     }
 
@@ -44,8 +47,8 @@ export class SlotManager extends Component
         if(this.reelManagerList.length > 0)
             this.reelManagerList.forEach((value)=>
             {
-                value.initData(this.main_spriteFrameList, this.blur_spriteFrameList);
-                value.event.on("finish", this.receiveResult, this);
+                value.initData(this.main_spriteFrameList, this.blur_spriteFrameList, this.main_spineDataList);
+                value?.event?.on("finish", this.receiveResult, this);
             });
         else
             console.error("Slot Manager Data Have Not Defined!!!");
@@ -58,7 +61,7 @@ export class SlotManager extends Component
 
         this.setCheatData(this.checkCheat());
         
-        this.resetResult();
+        // this.resetResult();
         this.reelManagerList.forEach((value)=>
         {
             this.scheduleOnce(()=>
@@ -86,9 +89,31 @@ export class SlotManager extends Component
         }
     }
 
+    receiveReward(rewardData: InstanceType<typeof RewardData>[], callback: ()=>void = null)
+    {
+        rewardData.forEach((val, idx)=>
+        {
+            if(val.row >= 0 && val.row < this.reelManagerList.length)
+            {
+                this.reelManagerList[val.row].receiveRewardData(val.col, val.symbol);
+            }
+            else
+            {
+                console.error("Reward Data Error on Slot Manager", val);
+            }
+        });
+
+        callback && callback();
+    }
+
     resetResult()
     {
         this.resultData = [];
+
+        this.reelManagerList.forEach((reel, idx)=>
+        {
+            reel.resetState();
+        })
     }
 
     private testDebug_1()
@@ -99,7 +124,7 @@ export class SlotManager extends Component
             value.forEach((data, key)=>
             {
                 console.log("Symbol Key ", key);
-                console.log("Symbol Name ", data.sprite.name);
+                console.log("Symbol Name ", data.sprite?.name);
                 console.log("Symbol result ", data.result);
             })
             console.log("==== End of Col " + idx + " ====")

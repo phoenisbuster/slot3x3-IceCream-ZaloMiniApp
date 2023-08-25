@@ -1,0 +1,20 @@
+
+concept_slot_boba.png
+size: 369,202
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cup
+  rotate: false
+  xy: 188, 7
+  size: 179, 193
+  orig: 187, 201
+  offset: 4, 4
+  index: -1
+glow
+  rotate: false
+  xy: 2, 2
+  size: 184, 198
+  orig: 198, 212
+  offset: 7, 7
+  index: -1

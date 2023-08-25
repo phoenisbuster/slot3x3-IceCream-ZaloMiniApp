@@ -135,7 +135,7 @@ export class UIController extends Component
 
     outOfTurnState(onComplete: ()=>void = null)
     {
-        this.showHideTurnDisplay(false);
+        // this.showHideTurnDisplay(false);
         this.showHideBackBtnSprite(false);
         
         var callback = ()=>
@@ -144,11 +144,11 @@ export class UIController extends Component
         }
         this.playGirlTalkAnim(callback);
 
-        callback = ()=>
-        {
-            this.playBTnSpinIdleAnim(true, true);
-        }
-        this.playBTnSpinInOutAnim(false, callback);
+        // callback = ()=>
+        // {
+        //     this.playBTnSpinIdleAnim(true, true);
+        // }
+        // this.playBTnSpinInOutAnim(false, callback);
 
         this.showhideChatBox(true);
         this.setChatBoxConentWithAnim(ChatBoxContent.out, 0.5, onComplete);

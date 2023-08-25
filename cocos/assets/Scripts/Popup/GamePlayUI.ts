@@ -9,7 +9,7 @@ import { GameDefinedData } from '../Manager/GameDefinedData';
 
 const { ccclass, property } = _decorator;
 
-const { ResultItem } = GameDefinedData.getAllRef();
+const { ResultItem, RewardData } = GameDefinedData.getAllRef();
 
 export interface GamePlayUIData
 {
@@ -117,6 +117,7 @@ export class GamePlayUI extends PopUpInstance
         this.spinFinish = false;
 
         this.rollBtn.interactable = false;
+        this.backBtn.interactable = false;
 
         this.slotManager?.spin();
     }
@@ -134,17 +135,27 @@ export class GamePlayUI extends PopUpInstance
         this.isSpinning = false;
         this.spinFinish = true;
 
-        GameManager.getInstance().onEndTurn(result, ()=>
-        {
-            this.onAfterFinishRoll();
-        });
+        GameManager.getInstance().onEndTurn(result, 
+                                            (rewardData: InstanceType<typeof RewardData>[])=>
+                                            {
+                                                this.slotManager.receiveReward(rewardData, ()=>
+                                                {
+                                                    
+                                                });
+                                            },
+                                            ()=>
+                                            {
+                                                this.onAfterFinishRoll();
+                                            }
+        );
     }
 
     private onAfterFinishRoll()
     {
+        //TODO: Waiting the Animation Reward to Finish + User Finish ScreenShot, Then Call This
         this.scheduleOnce(()=>
         {
-            console.warn("FINISH STATE");
+            console.warn("FINISH STATE ON UI");
             this.resetState();
         }, 1);
     }
@@ -166,6 +177,8 @@ export class GamePlayUI extends PopUpInstance
             this.backBtn.interactable = true;
             this.rollBtn.interactable = true;
         }
+
+        this.slotManager.resetResult();
     }
 
     /////////////////////////////////////////// SPINE ANIM /////////////////////////////////////////

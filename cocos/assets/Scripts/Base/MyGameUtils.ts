@@ -143,6 +143,22 @@ export class MyGameUtils
         return array.reduce((total, val) => total + val);
     }
 
+    public static allEleEqual(array: number[])
+    {
+        if(array.length <= 0)
+            return false;
+        if(array.length == 1)
+            return true;
+        
+        var val = array[0];
+        for (let i = 1; i < array.length; i++) 
+        {
+            if(val != array[i])
+                return false;
+        }
+        return true;
+    }
+
     public static getFirstEleGreater(array: number[], target: number) 
     {
         // Array must be sorted

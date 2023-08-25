@@ -8,10 +8,12 @@ import { ZaloConnection } from '../Networks/ZaloConnection';
 import { GamePlayUI } from '../Popup/GamePlayUI';
 import { UIController } from './UIController';
 import { GameDefinedData } from './GameDefinedData';
+import { MyGameUtils } from '../Base/MyGameUtils';
+import { RewardPopup } from '../Popup/RewardPopup';
 
 const { ccclass, property } = _decorator;
 
-const { ResultItem, LineData } = GameDefinedData.getAllRef();
+const { ResultItem, LineData, RewardData } = GameDefinedData.getAllRef();
 
 const lineData = LineData.getData();
 
@@ -76,6 +78,7 @@ export class GameManager extends Component
     private GameInfo: PopUpInstance = null;
     private MainGame: PopUpInstance = null;
     private Loading: PopUpInstance = null;
+    private Reward: PopUpInstance = null;
 
     private curRoomName: string = "";
     private username: string = "";
@@ -192,10 +195,30 @@ export class GameManager extends Component
         }
     }
 
+    showRewardPopup(rewardQueue: number[], onComplete: ()=>void = null)
+    {
+        if(this.Reward)
+        {
+            var data = {
+                callback: onComplete,
+                name: this.username,
+                phone: this.phone,
+                reward: rewardQueue
+            }
+            
+            this.Reward.open(data);
+            return;
+        }
+        else
+        {
+            this.loadRewardPopup();
+        }
+    }
+
     ///////////////////////////////////////// Set/Get Info ///////////////////////////////
     public setCheatLine()
     {
-        this.CheatEditLine.placeholder = this.CheatEditLine.string;
+        this.CheatEditLine.placeholder = "Line: " + this.CheatEditLine.string;
         this.cheatVal = this.CheatEditLine.string;
         this.CheatEditLine.string = "";
     }
@@ -259,61 +282,49 @@ export class GameManager extends Component
         this.uiController.changeTurnNumber(this.curTurnNumber);
 
         if(isRoll)
+        {
             this.uiController.onRollBtnClickAnim();
+            this.uiController.showHideBackBtnSprite(false);
+        }
     }
 
-    onEndTurn(result: Map<number, InstanceType<typeof ResultItem>>[], callback: ()=>void = null)
+    public onEndTurn(result: Map<number, InstanceType<typeof ResultItem>>[], 
+                    callback: (data: InstanceType<typeof RewardData>[])=>void = null,
+                    onComplete: ()=>void = null)
     {
-        // lineData.forEach((data, idx)=>
-        // {
-        //     var val1 = -1;
-        //     var val2 = -1;
-        //     var val3 = -1;
-        //     data.line.forEach((order, id)=>
-        //     {
-        //         var val = result[order.row].get(order.col).result;
-        //         switch(id)
-        //         {
-        //             case 0:
-        //                 val1 = val;
-        //                 break;
+        const rewardData: InstanceType<typeof RewardData>[] = [];
+        const rewardPopupData: number[] = [];
 
-        //             case 1:
-        //                 val2 = val;
-        //                 break;
-
-        //             case 2:
-        //                 val3 = val;
-        //                 break;
-        //         }
-        //     })
-        // })
-        if(result[0].get(0).result == result[1].get(0).result && result[0].get(0).result == result[2].get(0).result)
+        lineData.forEach((data, idx)=>
         {
-            console.warn("WIN SYMBOL", result[0].get(0).result + 1);
-        }
+            var val: number[] = [];
 
-        if(result[0].get(1).result == result[1].get(1).result && result[0].get(1).result == result[2].get(1).result)
-        {
-            console.warn("WIN SYMBOL", result[0].get(1).result + 1);
-        }
+            for(let i = 0; i < data.line.length; i++) 
+            {
+                val.push(result[data.line[i].row].get(data.line[i].col).result);
+            }
 
-        if(result[0].get(2).result == result[1].get(2).result && result[0].get(2).result == result[2].get(2).result)
-        {
-            console.warn("WIN SYMBOL", result[0].get(2).result + 1);
-        }
-
-        if(result[0].get(0).result == result[1].get(1).result && result[0].get(0).result == result[2].get(2).result)
-        {
-            console.warn("WIN SYMBOL", result[0].get(0).result + 1);
-        }
-
-        if(result[2].get(0).result == result[1].get(1).result && result[2].get(0).result == result[0].get(2).result)
-        {
-            console.warn("WIN SYMBOL", result[2].get(0).result + 1);
-        }
+            if(val.length == data.line.length && MyGameUtils.allEleEqual(val))
+            {
+                console.warn("WIN SYMBOL", val[0] + 1);
+                rewardPopupData.push(val[0]);
+                for(let i = 0; i < data.line.length; i++) 
+                {
+                    rewardData.push(new RewardData(data.line[i].col, data.line[i].row, val[0]));
+                }
+            }
+        })
         
-        callback && callback();
+        this.onReward(rewardPopupData, onComplete);
+        callback && callback(rewardData);
+    }
+
+    public onReward(rewardQueue: number[], onComplete: ()=>void = null)
+    {
+        this.scheduleOnce(()=>
+        {
+            this.showRewardPopup(rewardQueue, onComplete);
+        }, 1);
     }
 
     public onEndGame()
@@ -337,6 +348,7 @@ export class GameManager extends Component
         this.loadLoadingPopup();
         this.loadGameInfoPopup();
         this.loadMainGamePopup();
+        this.loadRewardPopup();
     }
     
     private loadLoadingPopup(callback: ()=>void = null)
@@ -381,7 +393,7 @@ export class GameManager extends Component
         );
     }
 
-    private loadMainGamePopup(callback: ()=>void = null)
+    private loadMainGamePopup(_callback: ()=>void = null)
     {
         var data = {
             callback: ()=>
@@ -401,8 +413,36 @@ export class GameManager extends Component
                 this.MainGame = popupValue;
                 this.MainGame.node.active = false;
 
-                callback && callback();
+                _callback && _callback();
             }
+        );
+    }
+
+    private loadRewardPopup(_callback: ()=>void = null)
+    {
+        var data = {
+            callback: ()=>
+            {   
+                console.warn("Default Call Back RewardPopup Called");
+                GameManager.getInstance().onEndGame();
+            },
+            name: "",
+            phone: "",
+            reward: []
+        }
+
+        UIManager.getInstance().openPopup(
+            RewardPopup, 
+            PopupName.Reward,
+            data,
+            (popupValue) =>
+            {
+                this.Reward = popupValue;
+                this.Reward.node.active = false;
+
+                _callback && _callback();
+            },
+            this.RewardLayout
         );
     }
 
@@ -424,4 +464,44 @@ export class GameManager extends Component
         // }
     }
 }
+
+        // if(result[0].get(0).result == result[1].get(0).result && result[0].get(0).result == result[2].get(0).result)
+        // {
+        //     console.warn("WIN SYMBOL", result[0].get(0).result + 1);
+        //     rewardData.push(new RewardData(0, 0, result[0].get(0).result));
+        //     rewardData.push(new RewardData(0, 1, result[0].get(0).result));
+        //     rewardData.push(new RewardData(0, 2, result[0].get(0).result));
+        // }
+
+        // if(result[0].get(1).result == result[1].get(1).result && result[0].get(1).result == result[2].get(1).result)
+        // {
+        //     console.warn("WIN SYMBOL", result[0].get(1).result + 1);
+        //     rewardData.push(new RewardData(1, 0, result[0].get(1).result));
+        //     rewardData.push(new RewardData(1, 1, result[0].get(1).result));
+        //     rewardData.push(new RewardData(1, 2, result[0].get(1).result));
+        // }
+
+        // if(result[0].get(2).result == result[1].get(2).result && result[0].get(2).result == result[2].get(2).result)
+        // {
+        //     console.warn("WIN SYMBOL", result[0].get(2).result + 1);
+        //     rewardData.push(new RewardData(2, 0, result[0].get(2).result));
+        //     rewardData.push(new RewardData(2, 1, result[0].get(2).result));
+        //     rewardData.push(new RewardData(2, 2, result[0].get(2).result));
+        // }
+
+        // if(result[0].get(0).result == result[1].get(1).result && result[0].get(0).result == result[2].get(2).result)
+        // {
+        //     console.warn("WIN SYMBOL", result[0].get(0).result + 1);
+        //     rewardData.push(new RewardData(0, 0, result[0].get(0).result));
+        //     rewardData.push(new RewardData(1, 1, result[0].get(0).result));
+        //     rewardData.push(new RewardData(2, 2, result[0].get(0).result));
+        // }
+
+        // if(result[2].get(0).result == result[1].get(1).result && result[2].get(0).result == result[0].get(2).result)
+        // {
+        //     console.warn("WIN SYMBOL", result[2].get(0).result + 1);
+        //     rewardData.push(new RewardData(0, 2, result[2].get(0).result));
+        //     rewardData.push(new RewardData(1, 1, result[2].get(0).result));
+        //     rewardData.push(new RewardData(2, 0, result[2].get(0).result));
+        // }
 

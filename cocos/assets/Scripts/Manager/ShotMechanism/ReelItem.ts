@@ -1,4 +1,4 @@
-import { _decorator, CCBoolean, Component, Node, Sprite, SpriteFrame, Vec3 } from 'cc';
+import { _decorator, CCBoolean, Component, instantiate, Node, sp, Sprite, SpriteFrame, Vec3 } from 'cc';
 import { GameDefinedData } from '../GameDefinedData';
 import { MyGameUtils } from '../../Base/MyGameUtils';
 import { GameManager } from '../GameManager';
@@ -12,6 +12,7 @@ class ReelCell
     private id: number = 0;
     private boundarySprite: Sprite = null;
     private dataSprite: Sprite = null;
+    private spineComp: sp.Skeleton = null;
     private data: InstanceType<typeof ResultItem> = null;
 
     constructor(_id: number, _boundarySprite: Sprite = null, _dataSprite: Sprite = null, _item: InstanceType<typeof ResultItem> = null)
@@ -20,12 +21,26 @@ class ReelCell
         this.boundarySprite = _boundarySprite;
         this.dataSprite = _dataSprite;
 
+        this.setSpine(this.dataSprite.node);
+
         if(_item != null)
             this.data = _item;
         else
             this.data = new ResultItem();
     }
 
+    private setSpine(parent: Node)
+    {
+        const node = instantiate(new Node("SpineAnim")); 
+        node.parent = parent;
+        node.position = new Vec3(0, -62, 0);
+
+        this.spineComp = node.addComponent(sp.Skeleton);
+        this.spineComp.skeletonData = null;
+        this.spineComp.enabled = false;
+    }
+
+    //////////////////////// Get/Set Data ////////////////////////////
     setItem(_data: InstanceType<typeof ResultItem>)
     {
         this.data = _data;
@@ -77,9 +92,38 @@ class ReelCell
         return !MyGameUtils.isNullOrUndefined(this.data);
     }
 
-    showHideBoundarySprite(isShow: boolean = false)
+    //////////////////////// Show/Hide UI ////////////////////////////
+    showHideBoundarySprite(isShow: boolean = false, animData: sp.SkeletonData = null)
     {
         this.boundarySprite.enabled = isShow;
+
+        if(animData != null && isShow)
+        {
+            console.warn("JUST WTF A", this.spineComp.node.parent.name);
+            console.warn("JUST WTF B", this.spineComp.node.parent.parent.name);
+            
+            this.spineComp.skeletonData = animData;
+            this.spineComp.premultipliedAlpha = false;
+            this.spineComp.timeScale = 1;
+            this.spineComp.setSkin("default");
+            this.spineComp.animation = "animation";
+            let state = this.spineComp.setAnimation(0, "animation", true) as sp.spine.TrackEntry;
+
+            this.dataSprite.node.scale = Vec3.ZERO;
+            this.spineComp.enabled = true;
+
+            if(state)
+            { 
+                state.animationStart = 0;
+            }
+        }
+        else
+        {
+            this.spineComp.skeletonData = null;
+
+            this.dataSprite.node.scale = Vec3.ONE;
+            this.spineComp.enabled = false;
+        }
     }
 }
 
@@ -93,6 +137,7 @@ export class ReelItem extends Component
 
     private spriteFrameList: SpriteFrame[] = [];
     private spriteFrameBlurList: SpriteFrame[] = [];
+    private spineDataList: sp.SkeletonData[] = [];
 
     private isCheat: boolean = false;
     private cheatKey: number = -1;
@@ -106,10 +151,11 @@ export class ReelItem extends Component
         });
     }
     
-    initData(symbolList: SpriteFrame[], blurList: SpriteFrame[])
+    initData(symbolList: SpriteFrame[], blurList: SpriteFrame[], spineData: sp.SkeletonData[])
     {
         this.spriteFrameList = symbolList;
         this.spriteFrameBlurList = blurList;
+        this.spineDataList = spineData;
 
         this.randomSprite(this.isBlur);
     }
@@ -135,8 +181,8 @@ export class ReelItem extends Component
         this.itemList.forEach((value, key)=>
         {
             var idx = 0;
-            console.warn("CHECK CHEAT cheatKey", this.cheatKey);
-            console.warn("CHECK CHEAT key", key);
+            // console.warn("CHECK CHEAT cheatKey", this.cheatKey);
+            // console.warn("CHECK CHEAT key", key);
             if(this.isCheat && key == this.cheatKey)
             {
                 idx = this.getCheatSymbol();
@@ -165,17 +211,29 @@ export class ReelItem extends Component
         });
     }
 
-    showWinSprite(idx: number)
+    showWinSprite(idx: number, symbol: number)
     {
-        if(!this.isBlur)
-            this.itemList.get(idx).showHideBoundarySprite(true);
+        if(this.isBlur)
+            return;
+        
+        var data: sp.SkeletonData = null;
+        if(symbol >= 0 || symbol < this.spineDataList.length)
+            data = this.spineDataList[symbol];
+
+        console.warn("CHECK A", this.spineDataList.length);
+        console.warn("CHECK B", data?.name);
+        
+        this.itemList.get(idx).showHideBoundarySprite(true, null);
     }
 
     hideAllWinSprite()
     {
+        if(this.isBlur)
+            return;
+        
         this.itemList.forEach((value, key)=>
         {
-            value.showHideBoundarySprite(false);
+            value.showHideBoundarySprite(false, null);
         })
     }
 
@@ -185,14 +243,16 @@ export class ReelItem extends Component
         this.cheatKey = _key;
     }
 
-    getCheatSymbol(): number
+    private getCheatSymbol(): number
     {
         var resultStr = GameManager.getInstance()?.CheatEditSymbol.string;
         var resultVal = 0;
+
         try
         {
             resultVal = parseInt(resultStr);
-            if(resultVal < 0 && resultVal >= this.spriteFrameList.length)
+
+            if(Number.isNaN(resultVal) || resultVal < 0 || resultVal >= this.spriteFrameList.length)
                 resultVal = 0;
         }
         catch

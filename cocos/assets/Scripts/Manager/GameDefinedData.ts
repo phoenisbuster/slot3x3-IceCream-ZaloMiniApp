@@ -51,6 +51,20 @@ export namespace GameDefinedData
         phoneInvalid = "Số điện thoại của bạn không hợp lệ"
     }
 
+    class RewardData
+    {
+        public col: number;
+        public row: number;
+        public symbol: number;
+
+        constructor(_col: number = 0, _row: number = 0, _symbol: number = 0)
+        {
+            this.col = _col;
+            this.row = _row;
+            this.symbol = _symbol;
+        }
+    }
+
     type LineAddress =
     {
         col: number,
@@ -167,7 +181,8 @@ export namespace GameDefinedData
             GirlAnimName, BtnSpinAnimName, ChatBoxContent,
 
             ResultItem,
-            LineData
+            LineData,
+            RewardData
         }
     }
 }

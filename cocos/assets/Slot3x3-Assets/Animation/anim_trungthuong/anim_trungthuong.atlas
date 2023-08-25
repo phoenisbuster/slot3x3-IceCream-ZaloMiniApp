@@ -1,0 +1,497 @@
+
+anim_trungthuong.png
+size: 1008,955
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BLACK
+  rotate: true
+  xy: 104, 891
+  size: 62, 99
+  orig: 62, 99
+  offset: 0, 0
+  index: -1
+BÁNH PUDDING
+  rotate: false
+  xy: 2, 628
+  size: 573, 90
+  orig: 573, 90
+  offset: 0, 0
+  index: -1
+BÁNH SỪNG BÒ
+  rotate: false
+  xy: 2, 533
+  size: 565, 93
+  orig: 565, 93
+  offset: 0, 0
+  index: -1
+Da_trung_thuong
+  rotate: false
+  xy: 205, 887
+  size: 391, 66
+  orig: 391, 66
+  offset: 0, 0
+  index: -1
+LY MÈO JACKPOT
+  rotate: false
+  xy: 2, 251
+  size: 622, 91
+  orig: 622, 91
+  offset: 0, 0
+  index: -1
+STICKER ZUI ZẺ
+  rotate: false
+  xy: 2, 436
+  size: 551, 95
+  orig: 551, 95
+  offset: 0, 0
+  index: -1
+TRÀ SỮA SIZE L
+  rotate: false
+  xy: 2, 720
+  size: 560, 90
+  orig: 560, 90
+  offset: 0, 0
+  index: -1
+TRÀ SỮA SIZE M
+  rotate: false
+  xy: 2, 344
+  size: 589, 90
+  orig: 589, 90
+  offset: 0, 0
+  index: -1
+TRÂN CHÂU
+  rotate: false
+  xy: 565, 772
+  size: 433, 90
+  orig: 433, 90
+  offset: 0, 0
+  index: -1
+VOUCHER 100K
+  rotate: false
+  xy: 2, 812
+  size: 561, 73
+  orig: 561, 73
+  offset: 0, 0
+  index: -1
+chucmungband
+  rotate: false
+  xy: 2, 24
+  size: 548, 225
+  orig: 548, 225
+  offset: 0, 0
+  index: -1
+foot_print
+  rotate: false
+  xy: 2, 925
+  size: 35, 28
+  orig: 35, 28
+  offset: 0, 0
+  index: -1
+frame_user
+  rotate: false
+  xy: 552, 2
+  size: 454, 225
+  orig: 454, 225
+  offset: 0, 0
+  index: -1
+hl1
+  rotate: true
+  xy: 39, 904
+  size: 49, 63
+  orig: 49, 63
+  offset: 0, 0
+  index: -1
+light11
+  rotate: false
+  xy: 577, 623
+  size: 148, 147
+  orig: 148, 147
+  offset: 0, 0
+  index: -1
+symbol1
+  rotate: true
+  xy: 727, 615
+  size: 155, 160
+  orig: 155, 160
+  offset: 0, 0
+  index: -1
+symbol2
+  rotate: true
+  xy: 569, 447
+  size: 166, 172
+  orig: 166, 172
+  offset: 0, 0
+  index: -1
+symbol4
+  rotate: false
+  xy: 626, 229
+  size: 236, 195
+  orig: 236, 195
+  offset: 0, 0
+  index: -1
+symbol5
+  rotate: true
+  xy: 743, 426
+  size: 187, 259
+  orig: 187, 259
+  offset: 0, 0
+  index: -1
+text_chucmung
+  rotate: false
+  xy: 598, 864
+  size: 391, 89
+  orig: 391, 89
+  offset: 0, 0
+  index: -1
+
+anim_trungthuong2.png
+size: 1007,962
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+item
+  rotate: true
+  xy: 714, 400
+  size: 319, 291
+  orig: 319, 291
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_00
+  rotate: true
+  xy: 2, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_01
+  rotate: true
+  xy: 358, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_02
+  rotate: true
+  xy: 2, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_03
+  rotate: true
+  xy: 358, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_04
+  rotate: true
+  xy: 2, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_05
+  rotate: true
+  xy: 358, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_06
+  rotate: false
+  xy: 714, 44
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_07
+  rotate: true
+  xy: 2, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_08
+  rotate: true
+  xy: 358, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+symbol3
+  rotate: false
+  xy: 714, 721
+  size: 289, 239
+  orig: 289, 239
+  offset: 0, 0
+  index: -1
+
+anim_trungthuong3.png
+size: 954,962
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ly_jp/lyjackpot_09
+  rotate: true
+  xy: 2, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_10
+  rotate: true
+  xy: 358, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_11
+  rotate: false
+  xy: 714, 606
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_12
+  rotate: true
+  xy: 2, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_13
+  rotate: true
+  xy: 358, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_14
+  rotate: false
+  xy: 714, 250
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_15
+  rotate: true
+  xy: 2, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_16
+  rotate: true
+  xy: 358, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_17
+  rotate: true
+  xy: 2, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_18
+  rotate: true
+  xy: 358, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+
+anim_trungthuong4.png
+size: 954,962
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ly_jp/lyjackpot_19
+  rotate: true
+  xy: 2, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_20
+  rotate: true
+  xy: 358, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_21
+  rotate: false
+  xy: 714, 606
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_22
+  rotate: true
+  xy: 2, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_23
+  rotate: true
+  xy: 358, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_24
+  rotate: false
+  xy: 714, 250
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_25
+  rotate: true
+  xy: 2, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_26
+  rotate: true
+  xy: 358, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_27
+  rotate: true
+  xy: 2, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_28
+  rotate: true
+  xy: 358, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+
+anim_trungthuong5.png
+size: 954,962
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ly_jp/lyjackpot_29
+  rotate: true
+  xy: 2, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_30
+  rotate: true
+  xy: 358, 722
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_31
+  rotate: false
+  xy: 714, 606
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_32
+  rotate: true
+  xy: 2, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_33
+  rotate: true
+  xy: 358, 482
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_34
+  rotate: false
+  xy: 714, 250
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_35
+  rotate: true
+  xy: 2, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_36
+  rotate: true
+  xy: 358, 242
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_37
+  rotate: true
+  xy: 2, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_38
+  rotate: true
+  xy: 358, 2
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+
+anim_trungthuong6.png
+size: 720,583
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+licht_bk
+  rotate: false
+  xy: 2, 2
+  size: 382, 337
+  orig: 382, 337
+  offset: 0, 0
+  index: -1
+ly_jp/lyjackpot_39
+  rotate: true
+  xy: 2, 343
+  size: 238, 354
+  orig: 238, 354
+  offset: 0, 0
+  index: -1
+symbol6
+  rotate: true
+  xy: 358, 341
+  size: 240, 360
+  orig: 240, 360
+  offset: 0, 0
+  index: -1
+
+anim_trungthuong7.png
+size: 736,738
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+light_b
+  rotate: false
+  xy: 2, 2
+  size: 732, 734
+  orig: 732, 734
+  offset: 0, 0
+  index: -1
