@@ -165,10 +165,9 @@ export class ReelManager extends Component
                                 blur.node.setPosition(new Vec3(blur.node.getPosition().x, this.mainPosY, 0));
                             else
                                 blur.node.setPosition(new Vec3(blur.node.getPosition().x, this.topPosY, 0));
-
-                            this.curTime = 0;
-                            this.movingState++;
                         });
+                        this.curTime = 0;
+                        this.movingState++;
                     }
 
                     this.blurReel.forEach((blur, idx)=>
