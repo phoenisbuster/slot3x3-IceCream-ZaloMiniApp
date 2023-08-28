@@ -330,6 +330,8 @@ export class GameManager extends Component
 
     public onReward(rewardQueue: number[], onComplete: ()=>void = null)
     {
+        this.uiController.showHideBackBtnSprite(true);
+        
         if(rewardQueue.length <= 0)
         {
             onComplete && onComplete();
