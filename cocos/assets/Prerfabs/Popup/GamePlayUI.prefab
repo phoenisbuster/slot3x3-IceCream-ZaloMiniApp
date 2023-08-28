@@ -3967,8 +3967,6 @@
     "__prefab": {
       "__id__": 184
     },
-    "speed": 1000,
-    "time": 5,
     "topPosY": 630,
     "mainPosY": 0,
     "botPosY": -630,
@@ -6941,8 +6939,6 @@
     "__prefab": {
       "__id__": 324
     },
-    "speed": 1000,
-    "time": 5,
     "topPosY": 630,
     "mainPosY": 0,
     "botPosY": -630,
@@ -9915,8 +9911,6 @@
     "__prefab": {
       "__id__": 464
     },
-    "speed": 1000,
-    "time": 5,
     "topPosY": 630,
     "mainPosY": 0,
     "botPosY": -630,
@@ -10024,7 +10018,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 645,
-      "height": 1935
+      "height": 645
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",

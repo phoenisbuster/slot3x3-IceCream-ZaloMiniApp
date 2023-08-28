@@ -1,4 +1,4 @@
-import { _decorator, Component, EventTarget, Node, sp, SpriteFrame } from 'cc';
+import { _decorator, CCFloat, Component, EventTarget, Node, sp, SpriteFrame } from 'cc';
 import { ReelManager } from './ReelManager';
 import { GameDefinedData } from '../GameDefinedData';
 import { MyGameUtils } from '../../Base/MyGameUtils';
@@ -26,8 +26,6 @@ export class SlotManager extends Component
     private reelManagerList: ReelManager[] = [];
 
     private resultData: Map<number, InstanceType<typeof ResultItem>>[] = [];
-
-    private isCheat: boolean = false;
     
     onLoad() 
     {
@@ -54,22 +52,22 @@ export class SlotManager extends Component
             console.error("Slot Manager Data Have Not Defined!!!");
     }
 
-    spin()
+    spin(callback: ()=>void = null)
     {
         if(this.reelManagerList.length <= 0)
             return;
 
         this.setCheatData(this.checkCheat());
         
-        // this.resetResult();
-        this.reelManagerList.forEach((value)=>
+        for (let i = 0; i < this.reelManagerList.length; i++) 
         {
             this.scheduleOnce(()=>
             {
-                value.spin();
-            }, 0.1);
-            
-        });
+                this.reelManagerList[i].spin();
+            }, 0.2*i);
+        }
+
+        callback && callback();
     }
 
     receiveResult(result: Map<number, InstanceType<typeof ResultItem>>)
@@ -84,7 +82,7 @@ export class SlotManager extends Component
 
         if(this.resultData.length == this.reelManagerList.length)
         {
-            this.testDebug_1();
+            this.logResultDetail();
             this.event.emit("finish", this.resultData);
         }
     }
@@ -116,7 +114,7 @@ export class SlotManager extends Component
         })
     }
 
-    private testDebug_1()
+    private logResultDetail()
     {
         this.resultData.forEach((value, idx)=>
         {
@@ -156,57 +154,55 @@ export class SlotManager extends Component
 
     private setCheatData(enabled: boolean = false)
     {
-        console.warn("CEHCK CHEAT", enabled);
+        // console.warn("CEHCK CHEAT", enabled);
         
         var line = GameManager.getInstance()?.getCheatLineValue();
         var key = -1;
-        switch(line)
+
+        this.reelManagerList.forEach((value, idx)=>
         {
-            case 1:
-                this.reelManagerList.forEach((value, idx)=>
-                {
+            switch(line)
+            {
+                case 1:
                     if(enabled)
                         key = 0;
                     value.setCheat(enabled, key);
-                });
-                break;
 
-            case 2:
-                this.reelManagerList.forEach((value, idx)=>
-                {
+                    break;
+
+                case 2:
                     if(enabled)
                         key = 1;
                     value.setCheat(enabled, key);
-                });
-                break;
 
-            case 3:
-                this.reelManagerList.forEach((value, idx)=>
-                {
+                    break;
+
+                case 3:
                     if(enabled)
                         key = 2;
                     value.setCheat(enabled, key);
-                });
-                break;
 
-            case 4:
-                this.reelManagerList.forEach((value, idx)=>
-                {
-                    if(enabled)
-                        key = idx;
-                    value.setCheat(enabled, key);
-                });
-                break;
+                    break;
 
-            case 5:
-                this.reelManagerList.forEach((value, idx)=>
-                {
+                case 4:
                     if(enabled)
-                        key = this.reelManagerList.length - idx - 1;
+                            key = idx;
                     value.setCheat(enabled, key);
-                });
-                break;
-        }
+
+                    break;
+
+                case 5:
+                    if(enabled)
+                            key = this.reelManagerList.length - idx - 1;
+                        value.setCheat(enabled, key);
+
+                    break;
+
+                default:
+                    value.setCheat(false, -1);
+                    break;
+            }
+        })
     }
 }
 

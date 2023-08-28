@@ -36,6 +36,9 @@ export class Audio extends Component
     start() 
     {
         this.playBGMusic();
+
+        SoundManager.getInstance().setMusicVolume(0);
+        SoundManager.getInstance().setSfxVolume(0);
     }
 
     playBGMusic()

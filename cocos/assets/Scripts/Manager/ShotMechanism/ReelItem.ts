@@ -1,4 +1,4 @@
-import { _decorator, CCBoolean, Component, instantiate, Node, sp, Sprite, SpriteFrame, Vec3 } from 'cc';
+import { _decorator, CCBoolean, Component, instantiate, Layers, Node, sp, Sprite, SpriteFrame, Vec3 } from 'cc';
 import { GameDefinedData } from '../GameDefinedData';
 import { MyGameUtils } from '../../Base/MyGameUtils';
 import { GameManager } from '../GameManager';
@@ -33,10 +33,12 @@ class ReelCell
     {
         const node = instantiate(new Node("SpineAnim")); 
         node.parent = parent;
+        node.layer = Layers.BitMask.UI_2D;
         node.position = new Vec3(0, -62, 0);
 
         this.spineComp = node.addComponent(sp.Skeleton);
         this.spineComp.skeletonData = null;
+        this.spineComp.premultipliedAlpha = false;
         this.spineComp.enabled = false;
     }
 
@@ -99,29 +101,28 @@ class ReelCell
 
         if(animData != null && isShow)
         {
-            console.warn("JUST WTF A", this.spineComp.node.parent.name);
-            console.warn("JUST WTF B", this.spineComp.node.parent.parent.name);
+            // console.warn("JUST WTF A", this.spineComp.node.parent.name);
+            // console.warn("JUST WTF B", this.spineComp.node.parent.parent.name);
             
             this.spineComp.skeletonData = animData;
-            this.spineComp.premultipliedAlpha = false;
-            this.spineComp.timeScale = 1;
-            this.spineComp.setSkin("default");
-            this.spineComp.animation = "animation";
             let state = this.spineComp.setAnimation(0, "animation", true) as sp.spine.TrackEntry;
 
-            this.dataSprite.node.scale = Vec3.ZERO;
+            this.dataSprite.enabled = false;
             this.spineComp.enabled = true;
 
             if(state)
             { 
                 state.animationStart = 0;
             }
+
+            // console.warn("JUST WTF C", this.spineComp.animation);
+            // console.warn("JUST WTF D", this.spineComp.timeScale);
         }
         else
         {
             this.spineComp.skeletonData = null;
 
-            this.dataSprite.node.scale = Vec3.ONE;
+            this.dataSprite.enabled = true;
             this.spineComp.enabled = false;
         }
     }
@@ -223,7 +224,7 @@ export class ReelItem extends Component
         console.warn("CHECK A", this.spineDataList.length);
         console.warn("CHECK B", data?.name);
         
-        this.itemList.get(idx).showHideBoundarySprite(true, null);
+        this.itemList.get(idx).showHideBoundarySprite(true, data);
     }
 
     hideAllWinSprite()

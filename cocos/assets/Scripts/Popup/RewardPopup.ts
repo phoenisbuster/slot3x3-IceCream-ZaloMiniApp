@@ -58,15 +58,21 @@ export class RewardPopup extends PopUpInstance
 
     onClickScreenShot()
     {
-        console.warn("Screen Shot Finish");
+        console.warn("Screen Shot Begin");
         this.screenShotBtn.interactable = false;
         this.screenShotBtn.node.active = false;
         
-        ScreenShotComp.getInstance().capture(false, false, true, ()=>
+        this.scheduleOnce(()=>
         {
-            this.screenShotBtn.node.active = true;
-            this.playEndAnim();
-        });
+            ScreenShotComp.getInstance().capture(false, false, true, ()=>
+            {
+                this.screenShotBtn.node.active = true;
+                this.playEndAnim();
+                console.warn("Screen Shot Finish");
+            });
+        }, 0.5);
+
+        
     }
 
     onPlayAnimReward(callback: ()=>void = null)
@@ -74,6 +80,7 @@ export class RewardPopup extends PopUpInstance
         if(this.rewardQueue.length <= 0)
         {
             callback && callback();
+            this.hidePopup();
             return;
         }
         
@@ -88,8 +95,6 @@ export class RewardPopup extends PopUpInstance
                 return;
             }
         });
-
-        console.warn("????????");
         
         if(!this.isJackpot)
             this.playSymbolAnim(this.rewardQueue.pop());
@@ -133,6 +138,7 @@ export class RewardPopup extends PopUpInstance
             this.screenShotBtn.interactable = true;
             this.setAnimation(this.rewardAnim, this.currentSkinName, "loop_jp", true, 0, 1, ()=>
             {
+            
             });
         });
     }
@@ -168,10 +174,8 @@ export class RewardPopup extends PopUpInstance
         timeScale: number = 1,
         callback: ()=>void = null) 
     {
-        console.warn("DEEP CHECK C", skeleton.enabled, skin, animationName, loop, startTime, timeScale);
         if(!skeleton)
         {
-            console.warn("DEEP CHECK D", skeleton);
             return;
         }
         skeleton.setSkin(skin);

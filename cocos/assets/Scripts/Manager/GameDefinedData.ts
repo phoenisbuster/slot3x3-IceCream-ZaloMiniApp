@@ -65,6 +65,62 @@ export namespace GameDefinedData
         }
     }
 
+    class ConfigData
+    {
+        private static _instance: ConfigData = null;
+
+        public static getInstance(): ConfigData
+        {
+            if(!ConfigData._instance)
+            {
+                ConfigData._instance = new ConfigData();
+            }
+
+            return ConfigData._instance;
+        }
+        
+        private _timeState1 = 0.3;
+        public get timeState1() : number
+        {
+            return this._timeState1;
+        }
+
+        private _timeState2 = 0.25;
+        public get timeState2() : number
+        {
+            return this._timeState2;
+        }
+
+        private _timeState3 = 0.3;
+        public get timeState3() : number
+        {
+            return this._timeState3;
+        }
+
+        private _timeState4 = 0.5;
+        public get timeState4() : number
+        {
+            return this._timeState4;
+        }
+
+        private _timeState5 = 0.25;
+        public get timeState5() : number
+        {
+            return this._timeState5;
+        }
+
+        private _spinNumber = 10;
+        public get spinNumber() : number
+        {
+            return this._spinNumber;
+        }
+        private _shrugLevel = 50;
+        public get shrugLevel() : number
+        {
+            return this._shrugLevel;
+        }
+    }
+
     type LineAddress =
     {
         col: number,
@@ -182,7 +238,8 @@ export namespace GameDefinedData
 
             ResultItem,
             LineData,
-            RewardData
+            RewardData,
+            ConfigData
         }
     }
 }

@@ -240,7 +240,10 @@ export class GameManager extends Component
             this.cheatVal = "-1";
             val = -1;
         }
-        return val;
+        finally
+        {
+            return val;
+        }   
     }
 
     public setRoomName(value: string)
@@ -292,6 +295,12 @@ export class GameManager extends Component
                     callback: (data: InstanceType<typeof RewardData>[])=>void = null,
                     onComplete: ()=>void = null)
     {
+        if(!result || result.length <= 0)
+        {
+            console.error("Error when reading result in Game Manager!!!", result);
+            return;
+        }
+        
         const rewardData: InstanceType<typeof RewardData>[] = [];
         const rewardPopupData: number[] = [];
 
@@ -321,10 +330,15 @@ export class GameManager extends Component
 
     public onReward(rewardQueue: number[], onComplete: ()=>void = null)
     {
+        if(rewardQueue.length <= 0)
+        {
+            onComplete && onComplete();
+        }
+        
         this.scheduleOnce(()=>
         {
             this.showRewardPopup(rewardQueue, onComplete);
-        }, 1);
+        }, 2);
     }
 
     public onEndGame()

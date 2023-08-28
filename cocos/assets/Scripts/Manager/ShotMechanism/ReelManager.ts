@@ -1,11 +1,11 @@
-import { _decorator, CCFloat, Component, EventTarget, Node, sp, SpriteFrame, Vec2, Vec3 } from 'cc';
+import { _decorator, CCFloat, Component, EventTarget, Node, sp, SpriteFrame, tween, Vec2, Vec3 } from 'cc';
 import { ReelItem } from './ReelItem';
 import { GameDefinedData } from '../GameDefinedData';
 import { MyGameUtils } from '../../Base/MyGameUtils';
 
 const { ccclass, property } = _decorator;
 
-const { ResultItem } = GameDefinedData.getAllRef();
+const { ResultItem, ConfigData } = GameDefinedData.getAllRef();
 
 @ccclass('ReelManager')
 export class ReelManager extends Component 
@@ -17,16 +17,6 @@ export class ReelManager extends Component
 
     public event: EventTarget = new EventTarget();
 
-    private allowMove: boolean = false;
-    private movingState: number = 0;
-    private curTime: number = 0;
-
-    @property(CCFloat)
-    private speed: number = 100;
-
-    @property(CCFloat)
-    private time: number = 5;
-
     @property(CCFloat)
     private topPosY: number = 630;
 
@@ -36,6 +26,14 @@ export class ReelManager extends Component
     @property(CCFloat)
     private botPosY: number = -630;
 
+    private timeState1 = 0.3;
+    private timeState2 = 0.25;
+    private timeState3 = 0.3;
+    private timeState4 = 0.5;
+    private timeState5 = 0.25;
+
+    private spinNumber = 10;
+    private shrugLevel = 50;
     
     onLoad()
     {
@@ -47,13 +45,10 @@ export class ReelManager extends Component
                 this.mainReel = value;
         });
 
+        this.GetCongifData();
+
         console.warn("Check blur " + this.blurReel.length);
         console.warn("Check Main Reel " + this.mainReel.node.name);
-    }
-
-    protected update(dt: number): void 
-    {
-        this.MovingForward(dt);
     }
 
     initData(symbolList: SpriteFrame[], blurList: SpriteFrame[], spineData: sp.SkeletonData[])
@@ -73,20 +68,12 @@ export class ReelManager extends Component
 
     spin()
     {
-        //TODO
-        //Moving Reels Here
         this.blurReel.forEach((value)=>
         {
             value.randomSprite(true);
         });
 
-        this.allowMove = true;
-        this.movingState++;
-
-        this.scheduleOnce(()=>
-        {
-            // this.sendResultData();
-        }, 1);
+        this.MovingState_1();
     }
 
     getResultData(): Map<number, InstanceType<typeof ResultItem>>
@@ -115,113 +102,180 @@ export class ReelManager extends Component
 
     setCheat(isCheat: boolean, key: number)
     {
+        // console.warn("Check CHEAT", isCheat, key);
         this.mainReel.setCheat(isCheat, key);
     }
 
-    private MovingForward(dt)
+    private GetCongifData()
     {
-        let direction = new Vec2(0,1);
-        if(this.allowMove)
+        this.timeState1 = ConfigData.getInstance().timeState1;
+        this.timeState2 = ConfigData.getInstance().timeState2;
+        this.timeState3 = ConfigData.getInstance().timeState3;
+        this.timeState4 = ConfigData.getInstance().timeState4;
+        this.timeState5 = ConfigData.getInstance().timeState5;
+
+        this.spinNumber = ConfigData.getInstance().spinNumber;
+        this.shrugLevel = ConfigData.getInstance().shrugLevel;
+    }
+
+    /////////////////////////////////// MOVING REEL ///////////////////////////////////////
+    private MovingState_1()
+    {
+        tween(this.mainReel.node).to(this.timeState1,
         {
-            switch(this.movingState)
-            {
-                case 1:
-                    let mainPos = this.mainReel.node.getPosition().y;
-                    mainPos -= this.speed * dt;
-                    if(mainPos <= this.botPosY)
-                    {
-                        mainPos = this.topPosY;
-                        this.mainReel.node.setPosition(new Vec3(this.mainReel.node.getPosition().x, this.topPosY, 0));
+            position: new Vec3(this.mainReel.node.position.x, this.botPosY, 0)
+        }).call(()=>
+        {
+            this.mainReel.node.position = new Vec3(this.mainReel.node.position.x, this.topPosY, 0);
+            this.resultData = this.mainReel.generateResultData();
 
-                        this.resultData = this.mainReel.generateResultData();
+            
+        }).start();
 
-                        this.movingState++;
-                        this.curTime = this.time;
-                    }
-                    else
-                        this.mainReel.node.setPosition(new Vec3(this.mainReel.node.getPosition().x, mainPos, 0));
+        this.blurReel.forEach((blur, idx)=>
+        {
+            if(Math.abs(blur.node.position.y - this.botPosY) <= 150)
+                blur.node.position = new Vec3(blur.node.position.x, this.topPosY, 0);
+            else
+                tween(blur.node).to(this.timeState1, 
+                {
+                    position: new Vec3(blur.node.position.x, this.mainPosY, 0)
+                }).call(()=>
+                {
+                    blur.node.position = new Vec3(blur.node.position.x, this.mainPosY, 0);
+                    this.MovingState_2();
+                }).start();
+        })
+    }
 
-                    this.blurReel.forEach((blur, idx)=>
-                    {
-                        let blurPos = blur.node.getPosition().y;
-                        blurPos -= this.speed * dt;
-
-                        if(blurPos <= this.botPosY)
-                        {
-                            blurPos = this.topPosY;
-                            blur.node.setPosition(new Vec3(blur.node.getPosition().x, this.topPosY, 0));
-                        }
-                        else
-                            blur.node.setPosition(new Vec3(blur.node.getPosition().x, blurPos, 0));
-                    });
-                    break;
-
-                case 2:
-                    if(this.curTime <= 0)
-                    {
-                        this.blurReel.forEach((blur, idx)=>
-                        {
-                            if(blur.node.position.y <= this.mainPosY)
-                                blur.node.setPosition(new Vec3(blur.node.getPosition().x, this.mainPosY, 0));
-                            else
-                                blur.node.setPosition(new Vec3(blur.node.getPosition().x, this.topPosY, 0));
-                        });
-                        this.curTime = 0;
-                        this.movingState++;
-                    }
-
-                    this.blurReel.forEach((blur, idx)=>
-                    {
-                        let blurPos = blur.node.getPosition().y;
-                        blurPos -= this.speed * dt;
-
-                        if(blurPos <= this.botPosY)
-                        {
-                            blurPos = this.topPosY;
-                            blur.randomSprite(true);
-                        }
-                        
-                        blur.node.setPosition(new Vec3(blur.node.getPosition().x, blurPos, 0));
-                    });
-                    this.curTime -= dt;
-                    break;
-
-                case 3:
-                    mainPos = this.mainReel.node.getPosition().y;
-                    mainPos -= this.speed * dt;
-                    if(mainPos <= this.mainPosY)
-                    {
-                        mainPos = this.mainPosY;
-                        this.mainReel.node.setPosition(new Vec3(this.mainReel.node.getPosition().x, this.mainPosY, 0));
-
-                        this.movingState = 0;
-                        this.allowMove = false;
-                    }
-                    else
-                        this.mainReel.node.setPosition(new Vec3(this.mainReel.node.getPosition().x, mainPos, 0));
-
-                    this.blurReel.forEach((blur, idx)=>
-                    {
-                        let blurPos = blur.node.getPosition().y;
-                        if(blurPos != this.topPosY)
-                        {
-                            blurPos -= this.speed * dt;
-                            if(blurPos <= this.botPosY)
-                            {
-                                blurPos = this.botPosY;
-                                blur.node.setPosition(new Vec3(blur.node.getPosition().x, this.botPosY, 0));
-                            }
-                            else
-                                blur.node.setPosition(new Vec3(blur.node.getPosition().x, blurPos, 0));
-                        }   
-                    });
-                    break;
-
-                case 0:
-                default:
-                    break;
-            }
+    private MovingState_2(time: number = 0)
+    {
+        if(time >= this.spinNumber)
+        {
+            // console.warn("Check ????", time);
+            this.MovingState_3()
+            return;
         }
+        
+        this.blurReel.forEach((blur, idx)=>
+        {
+            if(Math.abs(blur.node.position.y - this.topPosY) <= 150)
+            {
+                tween(blur.node).to(this.timeState2, 
+                {
+                    position: new Vec3(blur.node.position.x, this.mainPosY, 0)
+                }).call(()=>
+                {
+                    blur.node.position = new Vec3(blur.node.position.x, this.mainPosY, 0);
+                    // console.warn("????");
+                }).start();
+            }
+            else if(Math.abs(blur.node.position.y - this.mainPosY) < 150)
+            {
+                tween(blur.node).to(this.timeState2, 
+                {
+                    position: new Vec3(blur.node.position.x, this.botPosY, 0)
+                }).call(()=>
+                {
+                    blur.node.position = new Vec3(blur.node.position.x, this.topPosY, 0);
+                    blur.randomSprite(true);
+                    this.MovingState_2(time+1);
+                    // console.warn("????", time+1);
+                }).start();
+            }
+        });
+    }
+
+    private MovingState_3()
+    {
+        this.blurReel.forEach((blur, idx)=>
+        {
+            if(Math.abs(blur.node.position.y - this.topPosY) <= 150)
+            {
+                blur.randomSprite(false);
+        
+                tween(blur.node).to(this.timeState3, 
+                {
+                    position: new Vec3(blur.node.position.x, this.mainPosY, 0)
+                }).call(()=>
+                {
+                    blur.node.position = new Vec3(blur.node.position.x, this.mainPosY, 0);
+                }).start();
+            }
+            else
+            {
+                tween(blur.node).to(this.timeState3, 
+                {
+                    position: new Vec3(blur.node.position.x, this.botPosY, 0)
+                }).call(()=>
+                {
+                    blur.node.position = new Vec3(blur.node.position.x, this.topPosY, 0);
+                    blur.randomSprite(false);
+                    this.MovingState_4();
+                }).start();
+            }
+        });
+    }
+
+    private MovingState_4()
+    {
+        tween(this.mainReel.node).to(this.timeState4, 
+        {
+            position: new Vec3(this.mainReel.node.position.x, this.mainPosY, 0)
+        }).call(()=>
+        {
+            this.mainReel.node.position = new Vec3(this.mainReel.node.position.x, this.mainPosY, 0);
+        }).start();
+
+        this.blurReel.forEach((blur, idx)=>
+        {
+            if(Math.abs(blur.node.position.y - this.mainPosY) <= 150)
+            {
+                tween(blur.node).to(this.timeState4, 
+                {
+                    position: new Vec3(blur.node.position.x, this.botPosY, 0)
+                }).call(()=>
+                {
+                    blur.node.position = new Vec3(blur.node.position.x, this.botPosY, 0);
+                    this.MovingState_5();
+                }).start();
+            }
+        });
+    }
+
+    private MovingState_5()
+    {
+        tween(this.mainReel.node).to(this.timeState5, 
+        {
+            position: new Vec3(this.mainReel.node.position.x, this.mainPosY - this.shrugLevel, 0)
+        })
+        .to(this.timeState5, 
+        {
+            position: new Vec3(this.mainReel.node.position.x, this.mainPosY, 0)
+        })
+        .call(()=>
+        {
+            this.sendResultData();
+        }).start();
+
+        this.blurReel.forEach((blur, idx)=>
+        {
+            if(Math.abs(blur.node.position.y - this.topPosY) <= 150)
+            {
+                tween(blur.node).to(this.timeState5, 
+                {
+                    position: new Vec3(blur.node.position.x, this.topPosY - this.shrugLevel, 0)
+                })
+                .to(this.timeState5, 
+                {
+                    position: new Vec3(blur.node.position.x, this.topPosY, 0)
+                })
+                .call(()=>
+                {
+                    
+                }).start();
+            }
+        });
     }
 }
 

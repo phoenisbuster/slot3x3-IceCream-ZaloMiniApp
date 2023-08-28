@@ -119,7 +119,10 @@ export class GamePlayUI extends PopUpInstance
         this.rollBtn.interactable = false;
         this.backBtn.interactable = false;
 
-        this.slotManager?.spin();
+        this.slotManager?.spin(()=>
+        {
+            this.onSpinning();
+        });
     }
 
     private onSpinning()
@@ -145,12 +148,12 @@ export class GamePlayUI extends PopUpInstance
                                             },
                                             ()=>
                                             {
-                                                this.onAfterFinishRoll();
+                                                this.onFinishTurn();
                                             }
         );
     }
 
-    private onAfterFinishRoll()
+    private onFinishTurn()
     {
         //TODO: Waiting the Animation Reward to Finish + User Finish ScreenShot, Then Call This
         this.scheduleOnce(()=>
