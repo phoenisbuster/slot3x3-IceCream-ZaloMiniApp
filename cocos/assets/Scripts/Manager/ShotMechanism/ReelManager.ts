@@ -3,7 +3,8 @@ import { ReelItem } from './ReelItem';
 import { GameDefinedData } from '../GameDefinedData';
 import { MyGameUtils } from '../../Base/MyGameUtils';
 import { Audio } from '../Audio';
-import { SoundName } from '../../Base/SoundName';
+import { getSoundName, SoundName } from '../../Base/SoundName';
+import SoundManager from '../../Base/SoundManager';
 
 const { ccclass, property } = _decorator;
 
@@ -49,8 +50,8 @@ export class ReelManager extends Component
 
         this.GetCongifData();
 
-        console.warn("Check blur " + this.blurReel.length);
-        console.warn("Check Main Reel " + this.mainReel.node.name);
+        // console.warn("Check blur " + this.blurReel.length);
+        // console.warn("Check Main Reel " + this.mainReel.node.name);
     }
 
     initData(symbolList: SpriteFrame[], blurList: SpriteFrame[], spineData: sp.SkeletonData[])
@@ -247,13 +248,14 @@ export class ReelManager extends Component
 
     private MovingState_5()
     {
+        SoundManager.getInstance().play(getSoundName(SoundName.SfxRollStop));
         tween(this.mainReel.node).to(this.timeState5, 
         {
             position: new Vec3(this.mainReel.node.position.x, this.mainPosY - this.shrugLevel, 0)
         })
         .call(()=>
         {
-            Audio.getInstance().playSoundInstance(SoundName.SfxRollStop);
+            // SoundManager.getInstance().play(getSoundName(SoundName.SfxRollStop));
         })
         .to(this.timeState5, 
         {

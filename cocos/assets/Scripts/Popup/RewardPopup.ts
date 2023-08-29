@@ -69,7 +69,6 @@ export class RewardPopup extends PopUpInstance
         {
             ScreenShotComp.getInstance().capture(false, false, true, ()=>
             {
-                this.screenShotBtn.node.active = true;
                 this.playEndAnim();
                 console.warn("Screen Shot Finish");
             });
@@ -156,6 +155,7 @@ export class RewardPopup extends PopUpInstance
         
         this.setAnimation(this.rewardAnim, this.currentSkinName, animName, false, 0, 1, ()=>
         {
+            this.screenShotBtn.node.active = true;
             if(this.isJackpot)
             {
                 SoundManager.getInstance().stop(getSoundName(SoundName.SfxJackpot));

@@ -187,6 +187,7 @@ export class ReelItem extends Component
             if(this.isCheat && key == this.cheatKey)
             {
                 idx = this.getCheatSymbol();
+                console.warn("Check Cheat", idx);
             }
             else
             {
@@ -246,23 +247,30 @@ export class ReelItem extends Component
 
     private getCheatSymbol(): number
     {
-        var resultStr = GameManager.getInstance()?.CheatEditSymbol.string;
-        var resultVal = 0;
-
-        try
+        if(GameManager.getInstance().getEasyMode())
         {
-            resultVal = parseInt(resultStr);
+            return GameManager.getInstance().getEasyModeSymbol();
+        }
+        else
+        {
+            var resultStr = GameManager.getInstance()?.CheatEditSymbol.string;
+            var resultVal = 0;
 
-            if(Number.isNaN(resultVal) || resultVal < 0 || resultVal >= this.spriteFrameList.length)
+            try
+            {
+                resultVal = parseInt(resultStr);
+
+                if(Number.isNaN(resultVal) || resultVal < 0 || resultVal >= this.spriteFrameList.length)
+                    resultVal = 0;
+            }
+            catch
+            {
                 resultVal = 0;
-        }
-        catch
-        {
-            resultVal = 0;
-        }
-        finally
-        {
-            return resultVal;
+            }
+            finally
+            {
+                return resultVal;
+            }
         }
     }
 }

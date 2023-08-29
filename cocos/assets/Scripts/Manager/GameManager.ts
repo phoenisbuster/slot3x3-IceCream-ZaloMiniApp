@@ -72,7 +72,8 @@ export class GameManager extends Component
     @property(CCBoolean)
     private isCheat: boolean = false;
 
-    private cheatVal: string = "-1";
+    @property(CCBoolean)
+    private easyMode: boolean = false;
     
     public static CreateRoomClick: string = "CreateRoomClick";
     public static CreateRoomCancel: string = "CreateRoomCancel";
@@ -90,6 +91,14 @@ export class GameManager extends Component
     private phone: string = "";
 
     private curTurnNumber: number = 0;
+
+    /////////////////////////// Param for CHEAT + EASY MODE //////////////////////////////
+    private cheatVal: string = "-1";
+    private easyModeVal: number = 0;
+    private isLastTurnWin: boolean = false;
+    private isLastTurnJp: boolean = false;
+    private easyModeRate: number = 75;
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     static getInstance(): GameManager 
     {
@@ -125,6 +134,7 @@ export class GameManager extends Component
         this.showLoadingPopup();
 
         this.CheatLayout.active = this.isCheat;
+        this.setEasyModeSymbol();
     }
 
     protected onEnable()
@@ -232,7 +242,24 @@ export class GameManager extends Component
 
     public getCheatEnable(): boolean
     {
-        return this.isCheat;
+        if(this.easyMode)
+        {
+            var num = MyGameUtils.getRandomFloat(100);
+            var rate = this.isLastTurnWin? 5 : 50;
+
+            if(this.curTurnNumber % 2 == 0 && num < rate)
+            {
+                return true;
+            }
+            else if(this.curTurnNumber % 2 != 0 && num >= (100-rate))
+            {
+                return true;
+            }
+            else
+                return false;
+        }   
+        else
+            return this.isCheat;
     }
 
     public getCheatLineValue(): number
@@ -251,6 +278,41 @@ export class GameManager extends Component
         {
             return val;
         }   
+    }
+
+    public getEasyMode(): boolean
+    {
+        return this.easyMode;
+    }
+
+    public setEasyModeSymbol()
+    {
+        if(this.easyMode)
+        {
+            var num = MyGameUtils.getRandomFloat(100);
+            this.easyModeRate = this.isLastTurnJp? 75 : (this.easyModeRate-10<25? 25 : this.easyModeRate-10);
+
+            if(num < this.easyModeRate)
+            {
+                this.easyModeVal = MyGameUtils.getRandomInt(6, 0);
+                this.isLastTurnJp = false;
+            }
+            else
+            {
+                this.easyModeVal = 7;
+                this.isLastTurnJp = true;
+            }
+        }
+    }
+
+    public getEasyModeSymbol(): number
+    {
+        if(this.easyMode)
+        {
+            return this.easyModeVal
+        }
+        else
+            return -1;
     }
 
     public setRoomName(value: string)
@@ -328,11 +390,16 @@ export class GameManager extends Component
                 {
                     rewardData.push(new RewardData(data.line[i].col, data.line[i].row, val[0]));
                 }
+
+                if(val[0] == 7)
+                    this.isLastTurnJp = true;
             }
         })
         
         this.onReward(rewardPopupData, onComplete);
         callback && callback(rewardData);
+
+        this.setEasyModeSymbol();
     }
 
     public onReward(rewardQueue: number[], onComplete: ()=>void = null)
@@ -342,8 +409,11 @@ export class GameManager extends Component
         if(rewardQueue.length <= 0)
         {
             onComplete && onComplete();
+            this.isLastTurnWin = false;
             return;
         }
+
+        this.isLastTurnWin = true;
 
         SoundManager.getInstance().play(getSoundName(SoundName.SfxWinline));
         

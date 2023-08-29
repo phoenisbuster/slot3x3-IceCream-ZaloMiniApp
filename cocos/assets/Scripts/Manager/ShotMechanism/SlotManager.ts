@@ -148,7 +148,10 @@ export class SlotManager extends Component
                 return true;
             }
             else
-                return false;
+                if(GameManager.getInstance()?.getEasyMode())
+                    return true;
+                else
+                    return false;
         }
         else
             return false;
@@ -156,10 +159,16 @@ export class SlotManager extends Component
 
     private setCheatData(enabled: boolean = false)
     {
-        // console.warn("CEHCK CHEAT", enabled);
+        // console.warn("CHECK CHEAT", enabled);
         
         var line = GameManager.getInstance()?.getCheatLineValue();
+
+        if(GameManager.getInstance()?.getEasyMode())
+            line = MyGameUtils.getRandomInt(5, 1);
+
         var key = -1;
+
+        // console.warn("CHECK CHEAT LINE", line);
 
         this.reelManagerList.forEach((value, idx)=>
         {
@@ -188,15 +197,15 @@ export class SlotManager extends Component
 
                 case 4:
                     if(enabled)
-                            key = idx;
+                        key = idx;
                     value.setCheat(enabled, key);
 
                     break;
 
                 case 5:
                     if(enabled)
-                            key = this.reelManagerList.length - idx - 1;
-                        value.setCheat(enabled, key);
+                        key = this.reelManagerList.length - idx - 1;
+                    value.setCheat(enabled, key);
 
                     break;
 

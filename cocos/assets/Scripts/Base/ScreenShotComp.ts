@@ -29,6 +29,15 @@ export class ScreenShotComp extends Component
         director.addPersistRootNode(this.node);
     }
 
+    // protected start(): void 
+    // {
+    //     if(sys.platform != sys.Platform.DESKTOP_BROWSER && sys.browserType == sys.BrowserType.SAFARI)
+    //     {
+    //         this.gameCanvas.scale = new Vec3(1, -1, 1);
+    //         this.gameCanvas.setRotationFromEuler(0, 0, 0);
+    //     }
+    // }
+
     capture(isPostFb: boolean = false, isPostTwitter: boolean = false, isDownLoad: boolean = false, onFinish: ()=>void = null)
     {
         // var fullQuality = canvas.toDataURL('image/jpeg', 1.0);
@@ -36,8 +45,8 @@ export class ScreenShotComp extends Component
         // var lowQuality = canvas.toDataURL('image/jpeg', 0.1);
         if(sys.platform != sys.Platform.DESKTOP_BROWSER && sys.browserType == sys.BrowserType.SAFARI)
         {
-            this.gameCanvas.setRotationFromEuler(new Vec3(0, 0, 180));
-            this.gameCanvas.scale = new Vec3(-1, 1, 1);
+            this.gameCanvas.scale = new Vec3(1, -1, 1);
+            this.gameCanvas.setRotationFromEuler(0, 0, 0);
         }
 
 
@@ -46,6 +55,10 @@ export class ScreenShotComp extends Component
             //canvas 캡쳐
             //this._imageHtmlElemental.src = game.canvas.toDataURL()
             console.log(game.canvas.toDataURL().slice(0, 20));
+            console.log("Screenshot check b", this.gameCanvas.eulerAngles);
+            console.log("Screenshot check c", this.gameCanvas.getRotation());
+            console.log("Screenshot check d", this.gameCanvas.getScale());
+
             var width = screen.windowSize.width;
             var height = screen.windowSize.height;
 
@@ -89,9 +102,6 @@ export class ScreenShotComp extends Component
                 cropCanvasCtx.putImageData(cropImageData, 0, 0);
 
                 console.log("Screenshot check a", cropCanvasCtx.getTransform().toJSON());
-                console.log("Screenshot check b", this.gameCanvas.eulerAngles);
-                console.log("Screenshot check c", this.gameCanvas.getRotation());
-                console.log("Screenshot check d", this.gameCanvas.getScale());
 
                 //7. 잘려진 이미지 데이터
                 var cropCanvasBase64Data = cropCanvas.toDataURL();
@@ -132,8 +142,8 @@ export class ScreenShotComp extends Component
 
                 if(sys.platform != sys.Platform.DESKTOP_BROWSER && sys.browserType == sys.BrowserType.SAFARI)
                 {
-                    this.gameCanvas.setRotationFromEuler(new Vec3(0, 0, 0));
                     this.gameCanvas.scale = new Vec3(1, 1, 1);
+                    this.gameCanvas.setWorldRotationFromEuler(0, 0, 0);
                 }
 
                 onFinish && onFinish();
