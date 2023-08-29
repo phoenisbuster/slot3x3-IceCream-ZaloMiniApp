@@ -324,7 +324,7 @@
       "__id__": 12
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 14
@@ -554,8 +554,8 @@
       "__expectedType__": "sp.SkeletonData"
     },
     "_premultipliedAlpha": false,
-    "defaultSkin": "symbol_jp",
-    "defaultAnimation": "in_jp",
+    "defaultSkin": "symbol1",
+    "defaultAnimation": "loop",
     "_enableBatch": false,
     "_sockets": [],
     "_debugMesh": false,
@@ -1081,7 +1081,7 @@
     "__prefab": {
       "__id__": 48
     },
-    "sound": 1,
+    "sound": 6,
     "_id": ""
   },
   {

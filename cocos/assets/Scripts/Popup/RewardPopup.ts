@@ -87,8 +87,6 @@ export class RewardPopup extends PopUpInstance
             return;
         }
 
-        SoundManager.getInstance().play(getSoundName(SoundName.SfxReward));
-
         this.rewardQueue.forEach((val)=>
         {
             if(val == 7)
@@ -119,6 +117,8 @@ export class RewardPopup extends PopUpInstance
 
             return;
         }   
+
+        SoundManager.getInstance().play(getSoundName(SoundName.SfxReward));
         
         this.screenShotBtn.interactable = false;
         this.currentSkinName = "symbol" + (symbol+1);
@@ -135,6 +135,8 @@ export class RewardPopup extends PopUpInstance
 
     private playJackpotAnim()
     {
+        SoundManager.getInstance().play(getSoundName(SoundName.SfxJackpot));
+        
         this.screenShotBtn.interactable = false;
         this.currentSkinName = "symbol_jp";
         
@@ -155,7 +157,10 @@ export class RewardPopup extends PopUpInstance
         this.setAnimation(this.rewardAnim, this.currentSkinName, animName, false, 0, 1, ()=>
         {
             if(this.isJackpot)
+            {
+                SoundManager.getInstance().stop(getSoundName(SoundName.SfxJackpot));
                 this.isJackpot = false;
+            }
             
             if(this.rewardQueue.length > 0)
             {

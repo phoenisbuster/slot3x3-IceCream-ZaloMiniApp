@@ -23,9 +23,101 @@
         "anisotropy": 0,
         "isUuid": true,
         "imageUuidOrDatabaseUri": "392b5b45-5ab4-407f-b648-a7ffe9d8f93c",
-        "visible": true
+        "visible": false
       },
       "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "392b5b45-5ab4-407f-b648-a7ffe9d8f93c@f9941",
+      "displayName": "anim_trungthuong4",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": -10,
+        "offsetY": -9,
+        "trimX": 6,
+        "trimY": 26,
+        "width": 922,
+        "height": 928,
+        "rawWidth": 954,
+        "rawHeight": 962,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -461,
+            -464,
+            0,
+            461,
+            -464,
+            0,
+            -461,
+            464,
+            0,
+            461,
+            464,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            6,
+            936,
+            928,
+            936,
+            6,
+            8,
+            928,
+            8
+          ],
+          "nuv": [
+            0.006289308176100629,
+            0.008316008316008316,
+            0.9727463312368972,
+            0.008316008316008316,
+            0.006289308176100629,
+            0.972972972972973,
+            0.9727463312368972,
+            0.972972972972973
+          ],
+          "minPos": [
+            -461,
+            -464,
+            0
+          ],
+          "maxPos": [
+            461,
+            464,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "392b5b45-5ab4-407f-b648-a7ffe9d8f93c@6c48a",
+        "atlasUuid": ""
+      },
+      "ver": "1.0.11",
       "imported": true,
       "files": [
         ".json"
@@ -34,9 +126,9 @@
     }
   },
   "userData": {
-    "type": "texture",
+    "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "392b5b45-5ab4-407f-b648-a7ffe9d8f93c@6c48a"
+    "redirect": "392b5b45-5ab4-407f-b648-a7ffe9d8f93c@f9941"
   }
 }

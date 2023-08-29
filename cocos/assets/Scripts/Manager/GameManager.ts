@@ -345,7 +345,7 @@ export class GameManager extends Component
             return;
         }
 
-        SoundManager.getInstance().play(getSoundName(SoundName.SfxTWinline));
+        SoundManager.getInstance().play(getSoundName(SoundName.SfxWinline));
         
         this.scheduleOnce(()=>
         {

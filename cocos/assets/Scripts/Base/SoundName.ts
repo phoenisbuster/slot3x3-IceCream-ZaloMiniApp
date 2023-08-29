@@ -4,9 +4,9 @@ export enum SoundName {
     SfxSpinBtn,
     SfxRollStop,
     SfxReward,
-    SfxTWinline,
-    SfxUmph,
-    SfxWalk,
+    SfxWinline,
+    SfxCam,
+    SfxJackpot,
     SfxRobot,
 }
 
@@ -17,9 +17,9 @@ export function getSoundName(sound: SoundName){
     case SoundName.SfxSpinBtn: return "spin"
     case SoundName.SfxRollStop: return "stop"
     case SoundName.SfxReward: return "trungthuong"
-    case SoundName.SfxTWinline: return "winline"
-    case SoundName.SfxUmph: return "SfxUmph"
-    case SoundName.SfxWalk: return "SfxWalk"
+    case SoundName.SfxWinline: return "winline"
+    case SoundName.SfxCam: return "camera"
+    case SoundName.SfxJackpot: return "jackpot"
     case SoundName.SfxRobot: return "SfxRobot"
   }
 }
