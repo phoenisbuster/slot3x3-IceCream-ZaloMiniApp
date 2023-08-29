@@ -1,6 +1,8 @@
-import { _decorator, Camera, Component, director, Node, RenderTexture, size, Sprite, sys, Vec2, screen, SpriteFrame, Texture2D, game, Director } from 'cc';
+import { _decorator, Camera, Component, director, Node, RenderTexture, size, Sprite, sys, Vec2, screen, SpriteFrame, Texture2D, game, Director, Quat, Vec3 } from 'cc';
 // import { FBInstant } from "";
 import GameUtils from './GameUtils';
+import { PlatformType } from 'zmp-sdk';
+import { Platform } from '@microsoft/signalr/dist/esm/Utils';
 
 // import Facebook from '../Social/Facebook';
 
@@ -9,6 +11,9 @@ const { ccclass, property } = _decorator;
 @ccclass('ScreenShotComp')
 export class ScreenShotComp extends Component 
 {
+    @property(Node)
+    private gameCanvas: Node = null;
+    
     private static _instance: ScreenShotComp = null;
 
     private idx: number = 0;
@@ -29,11 +34,18 @@ export class ScreenShotComp extends Component
         // var fullQuality = canvas.toDataURL('image/jpeg', 1.0);
         // var mediumQuality = canvas.toDataURL('image/jpeg', 0.5);
         // var lowQuality = canvas.toDataURL('image/jpeg', 0.1);
+        if(sys.platform != sys.Platform.DESKTOP_BROWSER && sys.browserType == sys.BrowserType.SAFARI)
+        {
+            this.gameCanvas.setRotationFromEuler(new Vec3(0, 0, 180));
+            this.gameCanvas.scale = new Vec3(-1, 1, 1);
+        }
+
+
         var callback = () => {
 
             //canvas 캡쳐
             //this._imageHtmlElemental.src = game.canvas.toDataURL()
-            //log(game.canvas.toDataURL());
+            console.log(game.canvas.toDataURL().slice(0, 20));
             var width = screen.windowSize.width;
             var height = screen.windowSize.height;
 
@@ -60,7 +72,6 @@ export class ScreenShotComp extends Component
                 
                 captureCanvasCtx.drawImage(image, 0, 0, width, height);
 
-
                 //4. 2d canvas에서 오려올 데이터 만들기 
                 // var cropImageData = captureCanvasCtx.getImageData((winSize.width/2)-(_width/2)+_x, (winSize.height/2)-(_height/2)+_y, _width, _height);
                 var cropImageData = captureCanvasCtx.getImageData((width/2)-(_width/2)+_x, (height/2)-(_height/2)+_y, _width, _height);
@@ -77,6 +88,10 @@ export class ScreenShotComp extends Component
                 cropCanvasCtx.fill();
                 cropCanvasCtx.putImageData(cropImageData, 0, 0);
 
+                console.log("Screenshot check a", cropCanvasCtx.getTransform().toJSON());
+                console.log("Screenshot check b", this.gameCanvas.eulerAngles);
+                console.log("Screenshot check c", this.gameCanvas.getRotation());
+                console.log("Screenshot check d", this.gameCanvas.getScale());
 
                 //7. 잘려진 이미지 데이터
                 var cropCanvasBase64Data = cropCanvas.toDataURL();
@@ -114,6 +129,12 @@ export class ScreenShotComp extends Component
                 captureCanvas = null;
 
                 // return cropCanvasBase64Data;
+
+                if(sys.platform != sys.Platform.DESKTOP_BROWSER && sys.browserType == sys.BrowserType.SAFARI)
+                {
+                    this.gameCanvas.setRotationFromEuler(new Vec3(0, 0, 0));
+                    this.gameCanvas.scale = new Vec3(1, 1, 1);
+                }
 
                 onFinish && onFinish();
 

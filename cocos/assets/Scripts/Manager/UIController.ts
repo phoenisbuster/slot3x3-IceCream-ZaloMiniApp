@@ -71,7 +71,7 @@ export class UIController extends Component
         
         this.blackBG.node.active = true;
         this.showHideTurnDisplay(false);
-        this.showHideBackBtnSprite(false);
+        this.showHideBackBtnSprite(false, false);
         this.resetFrameBoardContent();
         
         this.showhideChatBox(true);
@@ -101,6 +101,7 @@ export class UIController extends Component
         this.curName = name;
         this.curPhone = phone;
         this.setFrameBoardContent();
+        this.showHideBackBtnSprite(true, false);
 
         var callback = ()=>
         {
@@ -112,7 +113,7 @@ export class UIController extends Component
         {
             this.playBTnSpinIdleAnim(false, true);
             this.showHideTurnDisplay(true);
-            this.showHideBackBtnSprite(true);
+            // this.showHideBackBtnSprite(true, false);
         }
         this.playBTnSpinInOutAnim(true, callback);
 
@@ -136,7 +137,7 @@ export class UIController extends Component
     outOfTurnState(onComplete: ()=>void = null)
     {
         // this.showHideTurnDisplay(false);
-        this.showHideBackBtnSprite(false);
+        this.showHideBackBtnSprite(false, false);
         
         var callback = ()=>
         {
@@ -163,16 +164,25 @@ export class UIController extends Component
     changeTurnNumber(turn: number)
     {
         this.turnNumberLabel.string = turn>0? "" + turn : "0";
+
+        var callback = ()=>
+        {
+            this.playGirlIdleAnim();
+        }
+        this.playGirlWinAnim(callback);
     }
 
-    showHideBackBtnSprite(isShow: boolean)
+    showHideBackBtnSprite(isShow: boolean, isGray: boolean)
     {
         var out: number = isShow? 255 : 0;
-        
-        tween(this.backBtnSprite.getComponent(UIOpacity)).to(0.1,
-        {
-            opacity: out
-        }).start();
+
+        if(out != this.backBtnSprite.getComponent(UIOpacity).opacity)
+            tween(this.backBtnSprite.getComponent(UIOpacity)).to(0.1,
+            {
+                opacity: out
+            }).start();
+
+        this.backBtnSprite.grayscale = isGray;
     }
 
     onRollBtnClickAnim()

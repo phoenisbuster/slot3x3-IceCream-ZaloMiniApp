@@ -8,7 +8,7 @@
 import LocalStorageManager from "./LocalStorageManager";
 import SoundItem from "./SoundItem";
 
-import { _decorator, Component, warn, EventTarget, director } from 'cc';
+import { _decorator, Component, warn, EventTarget, director, error } from 'cc';
 
 const { ccclass, property } = _decorator;
 const SoundManagerEvent = new EventTarget();
@@ -52,7 +52,7 @@ export default class SoundManager extends Component {
     if(this.soundMap.has(soundName)){
       this.soundMap.get(soundName).play(from, autoStopDelay);
     }else{
-      warn("can not find sound", soundName)
+      error("can not find sound", soundName)
     }
   }
 

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, log, random, Sprite, SpringJoint2D, instantiate, director, input, Input, EventKeyboard, KeyCode, UITransform, sp, Skeleton, Label, CCInteger, CCBoolean, EditBox } from 'cc';
+import { _decorator, Component, Node, log, random, Sprite, SpringJoint2D, instantiate, director, input, Input, EventKeyboard, KeyCode, UITransform, sp, Skeleton, Label, CCInteger, CCBoolean, EditBox, sys } from 'cc';
 import PopUpInstance from '../Base/PopUpInstance';
 import { PopupName } from '../Base/PopupName';
 import UIManager from '../Base/UIManager';
@@ -10,6 +10,8 @@ import { UIController } from './UIController';
 import { GameDefinedData } from './GameDefinedData';
 import { MyGameUtils } from '../Base/MyGameUtils';
 import { RewardPopup } from '../Popup/RewardPopup';
+import SoundManager from '../Base/SoundManager';
+import { SoundName, getSoundName } from '../Base/SoundName';
 
 const { ccclass, property } = _decorator;
 
@@ -61,6 +63,9 @@ export class GameManager extends Component
     @property(Node)
     AudioNode: Node = null;
 
+    @property(Label)
+    private debugMsgLabel: Label = null;
+
     @property(CCInteger)
     defaultTurn: number = 5;
 
@@ -110,6 +115,8 @@ export class GameManager extends Component
     {
         this.createInstance();
         this.loadAllPopup();
+
+        this.debugMsgLabel.string += sys.platform + ", " + sys.browserType;
     }
 
     protected start()
@@ -287,7 +294,7 @@ export class GameManager extends Component
         if(isRoll)
         {
             this.uiController.onRollBtnClickAnim();
-            this.uiController.showHideBackBtnSprite(false);
+            this.uiController.showHideBackBtnSprite(true, true);
         }
     }
 
@@ -330,17 +337,20 @@ export class GameManager extends Component
 
     public onReward(rewardQueue: number[], onComplete: ()=>void = null)
     {
-        this.uiController.showHideBackBtnSprite(true);
+        this.uiController.showHideBackBtnSprite(true, false);
         
         if(rewardQueue.length <= 0)
         {
             onComplete && onComplete();
+            return;
         }
+
+        SoundManager.getInstance().play(getSoundName(SoundName.SfxTWinline));
         
         this.scheduleOnce(()=>
         {
             this.showRewardPopup(rewardQueue, onComplete);
-        }, 2);
+        }, 1.5);
     }
 
     public onEndGame()

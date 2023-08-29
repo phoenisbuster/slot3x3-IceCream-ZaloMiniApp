@@ -2,6 +2,8 @@ import { _decorator, CCFloat, Component, EventTarget, Node, sp, SpriteFrame, twe
 import { ReelItem } from './ReelItem';
 import { GameDefinedData } from '../GameDefinedData';
 import { MyGameUtils } from '../../Base/MyGameUtils';
+import { Audio } from '../Audio';
+import { SoundName } from '../../Base/SoundName';
 
 const { ccclass, property } = _decorator;
 
@@ -248,6 +250,10 @@ export class ReelManager extends Component
         tween(this.mainReel.node).to(this.timeState5, 
         {
             position: new Vec3(this.mainReel.node.position.x, this.mainPosY - this.shrugLevel, 0)
+        })
+        .call(()=>
+        {
+            Audio.getInstance().playSoundInstance(SoundName.SfxRollStop);
         })
         .to(this.timeState5, 
         {

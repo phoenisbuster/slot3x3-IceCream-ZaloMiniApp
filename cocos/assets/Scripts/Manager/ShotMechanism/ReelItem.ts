@@ -34,7 +34,7 @@ class ReelCell
         const node = instantiate(new Node("SpineAnim")); 
         node.parent = parent;
         node.layer = Layers.BitMask.UI_2D;
-        node.position = new Vec3(0, -62, 0);
+        node.position = new Vec3(0, 0, 0);
 
         this.spineComp = node.addComponent(sp.Skeleton);
         this.spineComp.skeletonData = null;

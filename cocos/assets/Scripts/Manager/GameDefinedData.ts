@@ -35,11 +35,11 @@ export namespace GameDefinedData
     {
         loading = "Game đang tải vui lòng đợi chút xíu, xin cảm ơn!!!",
         loadingDone = "Tải xong rồi, vào game thôi",
-        getInfo = "Trước tiên cho mình xin tên và số điện thoại của bạn nhé",
+        getInfo = "Cho mình xin tên và số điện thoại của bạn nhé",
         playgame = "Chúc bạn chơi game vui vẻ",
 
         win = "Chúc mùng bạn đã trúng thưởng",
-        out = "Xin lỗi nhưng hết lượt qya mất rồi",
+        out = "Xin lỗi nhưng hết lượt quay mất rồi",
 
         chat1 = "Test",
         chat2 = "Hôm nay có vẻ như bản không may mắn lắm thì phải :v",

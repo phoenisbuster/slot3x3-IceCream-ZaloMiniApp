@@ -1,11 +1,10 @@
 import { _decorator, Button, CCInteger, Component, EventKeyboard, EventTarget, Game, Input, input, KeyCode, Label, Light, log, Node, RichText, sp, Sprite, SpriteFrame } from 'cc';
 import PopUpInstance from '../Base/PopUpInstance';
-import LocalStorageManager from '../Base/LocalStorageManager';
-import SoundManager from '../Base/SoundManager';
-import { getSoundName, SoundName } from '../Base/SoundName';
+import { SoundName } from '../Base/SoundName';
 import { GameManager } from '../Manager/GameManager';
 import { SlotManager } from '../Manager/ShotMechanism/SlotManager';
 import { GameDefinedData } from '../Manager/GameDefinedData';
+import { Audio } from '../Manager/Audio';
 
 const { ccclass, property } = _decorator;
 
@@ -156,11 +155,14 @@ export class GamePlayUI extends PopUpInstance
     private onFinishTurn()
     {
         //TODO: Waiting the Animation Reward to Finish + User Finish ScreenShot, Then Call This
-        this.scheduleOnce(()=>
-        {
-            console.warn("FINISH STATE ON UI");
-            this.resetState();
-        }, 1);
+        // this.scheduleOnce(()=>
+        // {
+        //     console.warn("FINISH STATE ON UI");
+        //     this.resetState();
+        // }, 1);
+
+        console.warn("FINISH STATE ON UI");
+        this.resetState();
     }
 
     private resetState()
@@ -181,7 +183,7 @@ export class GamePlayUI extends PopUpInstance
             this.rollBtn.interactable = true;
         }
 
-        this.slotManager.resetResult();
+        // this.slotManager.resetResult();
     }
 
     /////////////////////////////////////////// SPINE ANIM /////////////////////////////////////////

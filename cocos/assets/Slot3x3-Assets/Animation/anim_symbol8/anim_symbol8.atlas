@@ -1,0 +1,48 @@
+
+anim_symbol8.png
+size: 482,226
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cup
+  rotate: true
+  xy: 2, 2
+  size: 222, 228
+  orig: 228, 234
+  offset: 3, 3
+  index: -1
+glow
+  rotate: false
+  xy: 232, 2
+  size: 214, 222
+  orig: 219, 226
+  offset: 2, 2
+  index: -1
+star
+  rotate: false
+  xy: 448, 184
+  size: 32, 40
+  orig: 36, 44
+  offset: 2, 2
+  index: -1
+star1
+  rotate: false
+  xy: 448, 113
+  size: 22, 27
+  orig: 26, 31
+  offset: 2, 2
+  index: -1
+star2
+  rotate: false
+  xy: 448, 142
+  size: 32, 40
+  orig: 36, 44
+  offset: 2, 2
+  index: -1
+star3
+  rotate: false
+  xy: 448, 87
+  size: 21, 24
+  orig: 25, 28
+  offset: 2, 2
+  index: -1

@@ -41,6 +41,7 @@ export default class SoundItem extends Component {
                 break;
 
             case SoundType.Effect_Single:
+                console.warn("CHECK SOUND Single", this.audioSource.state);
                 if( this.audioSource.state == AudioSource.AudioState.PLAYING) return;
                 this.audioSource.loop = false;
                 this.audioSource.volume = SoundManager.getInstance().SfxVolume;

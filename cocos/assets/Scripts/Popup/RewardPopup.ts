@@ -1,6 +1,9 @@
 import { _decorator, Button, Component, Label, Node, sp } from 'cc';
 import PopUpInstance from '../Base/PopUpInstance';
 import { ScreenShotComp } from '../Base/ScreenShotComp';
+import { Audio } from '../Manager/Audio';
+import { getSoundName, SoundName } from '../Base/SoundName';
+import SoundManager from '../Base/SoundManager';
 const { ccclass, property } = _decorator;
 
 export interface RewardPopupData
@@ -83,7 +86,9 @@ export class RewardPopup extends PopUpInstance
             this.hidePopup();
             return;
         }
-        
+
+        SoundManager.getInstance().play(getSoundName(SoundName.SfxReward));
+
         this.rewardQueue.forEach((val)=>
         {
             if(val == 7)

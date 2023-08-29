@@ -57,6 +57,8 @@ export class SlotManager extends Component
         if(this.reelManagerList.length <= 0)
             return;
 
+        this.resetResult();
+
         this.setCheatData(this.checkCheat());
         
         for (let i = 0; i < this.reelManagerList.length; i++) 
@@ -128,13 +130,13 @@ export class SlotManager extends Component
             console.log("==== End of Col " + idx + " ====")
         });
         
-        this.scheduleOnce(()=>
-        {
-            this.reelManagerList.forEach((value)=>
-            {
-                console.log("TEST DEBUG RESULT IF DELETED AFTER SENT: ", value.getResultData());
-            });
-        })
+        // this.scheduleOnce(()=>
+        // {
+        //     this.reelManagerList.forEach((value)=>
+        //     {
+        //         console.log("TEST DEBUG RESULT IF DELETED AFTER SENT: ", value.getResultData());
+        //     });
+        // })
     }
 
     private checkCheat()
