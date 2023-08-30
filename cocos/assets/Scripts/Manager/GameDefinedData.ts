@@ -114,7 +114,7 @@ export namespace GameDefinedData
         {
             return this._spinNumber;
         }
-        private _shrugLevel = 50;
+        private _shrugLevel = 100;
         public get shrugLevel() : number
         {
             return this._shrugLevel;

@@ -129,7 +129,7 @@ export class ReelManager extends Component
             position: new Vec3(this.mainReel.node.position.x, this.botPosY, 0)
         }).call(()=>
         {
-            this.mainReel.node.position = new Vec3(this.mainReel.node.position.x, this.topPosY, 0);
+            this.mainReel.node.position = new Vec3(this.mainReel.node.position.x, this.topPosY + 50, 0);
             this.resultData = this.mainReel.generateResultData();
 
             
@@ -222,6 +222,8 @@ export class ReelManager extends Component
 
     private MovingState_4()
     {
+        this.mainReel.node.position = new Vec3(this.mainReel.node.position.x, this.topPosY, 0);
+        
         tween(this.mainReel.node).to(this.timeState4, 
         {
             position: new Vec3(this.mainReel.node.position.x, this.mainPosY, 0)

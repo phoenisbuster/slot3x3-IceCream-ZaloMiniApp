@@ -1,5 +1,5 @@
 import { _decorator, Component } from 'cc';
-import "reflect-metadata";
+// import "reflect-metadata";
 import * as signalR from "@microsoft/signalr"
 import { getUrl } from './helper';
 import { ChannelManager } from '../Networks/ChannelManager';

@@ -158,7 +158,7 @@ export class ReelItem extends Component
         this.spriteFrameBlurList = blurList;
         this.spineDataList = spineData;
 
-        this.randomSprite(this.isBlur);
+        this.randomSprite(false);
     }
 
     getItemLength(): number

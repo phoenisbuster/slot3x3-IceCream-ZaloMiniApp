@@ -1,6 +1,6 @@
-export const APP_NAME = "red-light-green-light"
+export const APP_NAME = "Slot-Carem"
 export const OA_ID = "3327045134763932455"
-export const DEV_VER = "&env=DEVELOPMENT&version=zdev-b8af72e8"
+export const DEV_VER = "&env=DEVELOPMENT&version=zdev-83a0872d"
 
 export const IFRAME_PARENT = "RLGR_PARENT"
 export const IFRAME_CHILD = "RLGR_CHILD"
@@ -18,7 +18,7 @@ export const SHARE_LINK = "SHARE_LINK"
 
 export const GET = "data"
 
-export const GAME_URL = "https://cocos.incubator.inspirelab.io/Demo/Official_web-mobile-10"
+export const GAME_URL = "https://phoenis.itch.io/slot-zalominiapp"
 export function createParentMessage(event = null, data = null){
   return {
     [FROM]:IFRAME_PARENT,

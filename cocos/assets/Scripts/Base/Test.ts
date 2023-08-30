@@ -1,6 +1,5 @@
 import { _decorator, Component, Node, Label, random, input, Input, EventKeyboard, KeyCode, Graphics } from 'cc';
-import "reflect-metadata";
-import sdk, { SDKCreator } from "zmp-sdk";
+// import "reflect-metadata";
 import { ConsoleHelper, consoleEvent, onReceivedMessageEvent } from './ConsoleHelper';
 import { createChildMessage, GET_APP_INFO, isParentMessage } from './helper';
 import { Connector } from './Connector';

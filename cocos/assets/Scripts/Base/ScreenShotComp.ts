@@ -1,10 +1,4 @@
 import { _decorator, Camera, Component, director, Node, RenderTexture, size, Sprite, sys, Vec2, screen, SpriteFrame, Texture2D, game, Director, Quat, Vec3 } from 'cc';
-// import { FBInstant } from "";
-import GameUtils from './GameUtils';
-import { PlatformType } from 'zmp-sdk';
-import { Platform } from '@microsoft/signalr/dist/esm/Utils';
-
-// import Facebook from '../Social/Facebook';
 
 const { ccclass, property } = _decorator;
 

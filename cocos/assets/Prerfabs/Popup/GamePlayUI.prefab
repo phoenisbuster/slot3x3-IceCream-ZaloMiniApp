@@ -250,9 +250,6 @@
         "__id__": 28
       },
       {
-        "__id__": 34
-      },
-      {
         "__id__": 482
       },
       {
@@ -669,28 +666,89 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "frame_in",
+    "_name": "SlotMask",
     "_objFlags": 0,
     "_parent": {
       "__id__": 10
+    },
+    "_children": [
+      {
+        "__id__": 29
+      },
+      {
+        "__id__": 35
+      }
+    ],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 473
+      },
+      {
+        "__id__": 475
+      },
+      {
+        "__id__": 477
+      },
+      {
+        "__id__": 479
+      }
+    ],
+    "_prefab": {
+      "__id__": 481
+    },
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": -90,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "frame_in",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 28
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 29
+        "__id__": 30
       },
       {
-        "__id__": 31
+        "__id__": 32
       }
     ],
     "_prefab": {
-      "__id__": 33
+      "__id__": 34
     },
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -88.358,
+      "y": 4.380499999999984,
       "z": 0
     },
     "_lrot": {
@@ -720,11 +778,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 28
+      "__id__": 29
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 30
+      "__id__": 31
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -747,11 +805,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 28
+      "__id__": 29
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 32
+      "__id__": 33
     },
     "_customMaterial": null,
     "_srcBlendFactor": 2,
@@ -798,68 +856,10 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "SlotMask",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 10
-    },
-    "_children": [
-      {
-        "__id__": 35
-      }
-    ],
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 473
-      },
-      {
-        "__id__": 475
-      },
-      {
-        "__id__": 477
-      },
-      {
-        "__id__": 479
-      }
-    ],
-    "_prefab": {
-      "__id__": 481
-    },
-    "_lpos": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -92.73849999999997,
-      "z": 0
-    },
-    "_lrot": {
-      "__type__": "cc.Quat",
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "w": 1
-    },
-    "_lscale": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_layer": 33554432,
-    "_euler": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Node",
     "_name": "Reels",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 34
+      "__id__": 28
     },
     "_children": [
       {
@@ -2062,8 +2062,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 210,
+      "x": -0.849,
+      "y": 210.848,
       "z": 0
     },
     "_lrot": {
@@ -2345,8 +2345,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
+      "x": -0.849,
+      "y": 4.242,
       "z": 0
     },
     "_lrot": {
@@ -2628,8 +2628,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -210,
+      "x": -0.849,
+      "y": -203.213,
       "z": 0
     },
     "_lrot": {
@@ -2919,7 +2919,7 @@
     "node": {
       "__id__": 87
     },
-    "_enabled": true,
+    "_enabled": false,
     "__prefab": {
       "__id__": 133
     },
@@ -5097,8 +5097,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 210,
+      "x": -1.697,
+      "y": 210.848,
       "z": 0
     },
     "_lrot": {
@@ -5359,8 +5359,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
+      "x": -2.247,
+      "y": 3.643,
       "z": 0
     },
     "_lrot": {
@@ -5621,8 +5621,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -210,
+      "x": -1.697,
+      "y": -203.213,
       "z": 0
     },
     "_lrot": {
@@ -5891,7 +5891,7 @@
     "node": {
       "__id__": 233
     },
-    "_enabled": true,
+    "_enabled": false,
     "__prefab": {
       "__id__": 273
     },
@@ -8069,8 +8069,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 210,
+      "x": -4.193,
+      "y": 211.397,
       "z": 0
     },
     "_lrot": {
@@ -8331,8 +8331,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
+      "x": -4.193,
+      "y": 2.795,
       "z": 0
     },
     "_lrot": {
@@ -8593,8 +8593,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -210,
+      "x": -4.193,
+      "y": -203.012,
       "z": 0
     },
     "_lrot": {
@@ -8863,7 +8863,7 @@
     "node": {
       "__id__": 373
     },
-    "_enabled": true,
+    "_enabled": false,
     "__prefab": {
       "__id__": 413
     },
@@ -10033,7 +10033,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 34
+      "__id__": 28
     },
     "_enabled": true,
     "__prefab": {
@@ -10042,7 +10042,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 645,
-      "height": 630
+      "height": 647
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -10060,7 +10060,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 34
+      "__id__": 28
     },
     "_enabled": true,
     "__prefab": {
@@ -10081,7 +10081,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 34
+      "__id__": 28
     },
     "_enabled": true,
     "__prefab": {
@@ -10126,7 +10126,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 34
+      "__id__": 28
     },
     "_enabled": true,
     "__prefab": {

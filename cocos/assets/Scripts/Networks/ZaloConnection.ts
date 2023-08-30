@@ -1,11 +1,9 @@
 import { _decorator, Component, director, Node, EventTarget } from 'cc';
 import { ConsoleHelper, consoleEvent, onReceivedMessageEvent } from '../Base/ConsoleHelper';
 import { FOLLOW_OA, GET_APP_INFO, GET_HREF, GET_USER_INFO, LOGIN, SCAN_QR_CODE, SHARE_LINK } from '../Base/helper';
-// import { WebsocketConnect } from './WebsocketConnect';
 import { ChannelManager } from './ChannelManager';
-import { ServerConnect } from './ServerConnect';
 import { UserInfo } from './UserInfo';
-import LocalStorageManager from '../Base/LocalStorageManager';
+
 const { ccclass, property } = _decorator;
 
 @ccclass('ZaloConnection')
