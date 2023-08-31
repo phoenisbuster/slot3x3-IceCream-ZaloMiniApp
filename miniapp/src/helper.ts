@@ -18,7 +18,7 @@ export const SHARE_LINK = "SHARE_LINK"
 
 export const GET = "data"
 
-export const GAME_URL = "https://phoenis.itch.io/slot-zalominiapp"
+export const GAME_URL = "https://itch.io/embed-upload/8605139?color=333333"
 
 export function createParentMessage(event = null, data = null) {
   return {

@@ -1,0 +1,125 @@
+
+anim_idle_win.png
+size: 475,1015
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A
+  rotate: false
+  xy: 295, 23
+  size: 41, 48
+  orig: 43, 50
+  offset: 1, 1
+  index: -1
+B1
+  rotate: false
+  xy: 434, 217
+  size: 33, 43
+  orig: 35, 45
+  offset: 1, 1
+  index: -1
+B2
+  rotate: true
+  xy: 434, 262
+  size: 35, 39
+  orig: 37, 41
+  offset: 1, 1
+  index: -1
+BG01
+  rotate: false
+  xy: 2, 202
+  size: 359, 811
+  orig: 359, 813
+  offset: 0, 2
+  index: -1
+BG_blue
+  rotate: true
+  xy: 363, 657
+  size: 356, 89
+  orig: 358, 91
+  offset: 1, 1
+  index: -1
+BG_blue copy
+  rotate: true
+  xy: 363, 299
+  size: 356, 89
+  orig: 356, 89
+  offset: 0, 0
+  index: -1
+BOBA SPIN
+  rotate: false
+  xy: 2, 2
+  size: 291, 69
+  orig: 295, 72
+  offset: 2, 2
+  index: -1
+N
+  rotate: false
+  xy: 338, 30
+  size: 40, 41
+  orig: 42, 43
+  offset: 1, 1
+  index: -1
+O
+  rotate: true
+  xy: 380, 30
+  size: 41, 40
+  orig: 43, 43
+  offset: 1, 1
+  index: -1
+P
+  rotate: false
+  xy: 434, 122
+  size: 31, 44
+  orig: 33, 46
+  offset: 1, 1
+  index: -1
+S
+  rotate: false
+  xy: 434, 168
+  size: 29, 47
+  orig: 31, 49
+  offset: 1, 1
+  index: -1
+cat
+  rotate: true
+  xy: 388, 80
+  size: 217, 44
+  orig: 219, 46
+  offset: 1, 1
+  index: -1
+i
+  rotate: false
+  xy: 454, 343
+  size: 19, 43
+  orig: 21, 45
+  offset: 1, 1
+  index: -1
+led_01
+  rotate: false
+  xy: 454, 388
+  size: 13, 219
+  orig: 15, 223
+  offset: 1, 2
+  index: -1
+led_02
+  rotate: true
+  xy: 454, 609
+  size: 404, 14
+  orig: 408, 16
+  offset: 2, 1
+  index: -1
+led_03
+  rotate: true
+  xy: 363, 246
+  size: 51, 16
+  orig: 53, 16
+  offset: 1, 0
+  index: -1
+shape
+  rotate: false
+  xy: 2, 73
+  size: 384, 127
+  orig: 386, 129
+  offset: 1, 1
+  index: -1

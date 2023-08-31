@@ -90,7 +90,7 @@ export class RewardPopup extends PopUpInstance
         {
             if(val == 7)
             {
-                console.warn("JACK POT DISPLAY", val);
+                // console.warn("JACK POT DISPLAY", val);
 
                 this.isJackpot = true;
                 this.playJackpotAnim();
@@ -164,12 +164,12 @@ export class RewardPopup extends PopUpInstance
             
             if(this.rewardQueue.length > 0)
             {
-                console.warn("Still More Reward");
+                // console.warn("Still More Reward");
                 this.playSymbolAnim(this.rewardQueue.pop());
             }
             else
             {
-                console.warn("Done Reward");
+                // console.warn("Done Reward");
                 this.onClickClose();
             }
         });

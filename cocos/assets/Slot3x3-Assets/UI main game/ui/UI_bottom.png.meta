@@ -129,6 +129,7 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": true,
     "hasAlpha": true,
-    "redirect": "d1138833-92fb-44b1-bb62-4da44695d000@f9941"
+    "redirect": "d1138833-92fb-44b1-bb62-4da44695d000@f9941",
+    "flipVertical": false
   }
 }

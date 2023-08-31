@@ -76,7 +76,7 @@ export class GamePlayUI extends PopUpInstance
 
         this.curTurnNumber = data.turn > 0? data.turn : this.defaultTurnNumber;
         this.turnLabel.string = "" + this.curTurnNumber;
-        GameManager.getInstance().changeTurn(this.curTurnNumber, false);
+        GameManager.getInstance().onChangeTurn(this.curTurnNumber, false);
 
         this.resetState();
     }
@@ -103,7 +103,7 @@ export class GamePlayUI extends PopUpInstance
 
         this.curTurnNumber--;
         this.turnLabel.string = "" + this.curTurnNumber;
-        GameManager.getInstance().changeTurn(this.curTurnNumber, true);
+        GameManager.getInstance().onChangeTurn(this.curTurnNumber, true);
 
         this.onStartRoll();
     }
@@ -161,7 +161,7 @@ export class GamePlayUI extends PopUpInstance
         //     this.resetState();
         // }, 1);
 
-        console.warn("FINISH STATE ON UI");
+        // console.warn("FINISH STATE ON UI");
         this.resetState();
     }
 
@@ -176,11 +176,13 @@ export class GamePlayUI extends PopUpInstance
             this.rollBtn.interactable = false;
             this.backBtn.interactable = false;
             GameManager.getInstance().onEndGame();
+            this.slotManager.resetResult();
         }
         else
         {
             this.backBtn.interactable = true;
             this.rollBtn.interactable = true;
+            GameManager.getInstance().onNewTurn();
         }
 
         // this.slotManager.resetResult();

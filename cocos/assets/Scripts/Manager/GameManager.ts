@@ -12,6 +12,7 @@ import { MyGameUtils } from '../Base/MyGameUtils';
 import { RewardPopup } from '../Popup/RewardPopup';
 import SoundManager from '../Base/SoundManager';
 import { SoundName, getSoundName } from '../Base/SoundName';
+import { ScreenShotComp } from '../Base/ScreenShotComp';
 
 const { ccclass, property } = _decorator;
 
@@ -125,7 +126,7 @@ export class GameManager extends Component
         this.createInstance();
         this.loadAllPopup();
 
-        this.debugMsgLabel.string += sys.platform + ", " + sys.browserType;
+        this.debugMsgLabel.string += sys.platform + ", " + sys.browserType + ", " + sys.browserVersion + ", " + sys.osVersion + ", " + sys.osMainVersion;
     }
 
     protected start()
@@ -160,6 +161,8 @@ export class GameManager extends Component
     {
         this.CheatLayout.active = !this.CheatLayout.active;
         this.isCheat = this.CheatLayout.active;
+
+        // ScreenShotComp.getInstance().capture(false, false, true);
     }
 
     showLoadingPopup()
@@ -348,7 +351,12 @@ export class GameManager extends Component
         return this.phone;
     }
 
-    public changeTurn(turn: number, isRoll: boolean)
+    public onNewTurn()
+    {
+        this.uiController.newState();
+    }
+
+    public onChangeTurn(turn: number, isRoll: boolean)
     {
         this.curTurnNumber = turn;
         this.uiController.changeTurnNumber(this.curTurnNumber);
@@ -384,7 +392,7 @@ export class GameManager extends Component
 
             if(val.length == data.line.length && MyGameUtils.allEleEqual(val))
             {
-                console.warn("WIN SYMBOL", val[0] + 1);
+                // console.warn("WIN SYMBOL", val[0] + 1);
                 rewardPopupData.push(val[0]);
                 for(let i = 0; i < data.line.length; i++) 
                 {
@@ -416,6 +424,7 @@ export class GameManager extends Component
         this.isLastTurnWin = true;
 
         SoundManager.getInstance().play(getSoundName(SoundName.SfxWinline));
+        this.uiController.winState();
         
         this.scheduleOnce(()=>
         {

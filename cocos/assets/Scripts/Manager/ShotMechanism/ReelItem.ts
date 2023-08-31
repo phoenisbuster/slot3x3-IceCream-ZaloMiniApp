@@ -187,7 +187,7 @@ export class ReelItem extends Component
             if(this.isCheat && key == this.cheatKey)
             {
                 idx = this.getCheatSymbol();
-                console.warn("Check Cheat", idx);
+                // console.warn("Check Cheat", idx);
             }
             else
             {
@@ -222,8 +222,8 @@ export class ReelItem extends Component
         if(symbol >= 0 || symbol < this.spineDataList.length)
             data = this.spineDataList[symbol];
 
-        console.warn("CHECK A", this.spineDataList.length);
-        console.warn("CHECK B", data?.name);
+        // console.warn("CHECK A", this.spineDataList.length);
+        // console.warn("CHECK B", data?.name);
         
         this.itemList.get(idx).showHideBoundarySprite(true, data);
     }

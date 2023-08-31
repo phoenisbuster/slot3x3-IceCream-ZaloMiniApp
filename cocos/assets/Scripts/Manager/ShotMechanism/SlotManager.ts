@@ -79,12 +79,12 @@ export class SlotManager extends Component
             return;
         }
         
-        console.log("Result Receive ", result.size);
+        // console.log("Result Receive ", result.size);
         this.resultData.push(result);
 
         if(this.resultData.length == this.reelManagerList.length)
         {
-            this.logResultDetail();
+            // this.logResultDetail();
             this.event.emit("finish", this.resultData);
         }
     }
@@ -108,6 +108,9 @@ export class SlotManager extends Component
 
     resetResult()
     {
+        if(this.resultData.length <= 0)
+            return;
+        
         this.resultData = [];
 
         this.reelManagerList.forEach((reel, idx)=>

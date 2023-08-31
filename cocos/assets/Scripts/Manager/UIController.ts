@@ -17,6 +17,9 @@ export class UIController extends Component
     @property(sp.Skeleton)
     btnSpinAnim: sp.Skeleton = null;
 
+    @property(sp.Skeleton)
+    frameOutAnim: sp.Skeleton = null;
+
     @property(Sprite)
     chatBoxSprite: Sprite = null;
 
@@ -52,7 +55,7 @@ export class UIController extends Component
     
     protected start() 
     {
-        console.log("Anim Name " + this.currentAnimName);
+        // console.log("Anim Name " + this.currentAnimName);
         this.loadingState();
     }
 
@@ -61,6 +64,7 @@ export class UIController extends Component
     {
         this.blackBG.node.active = true;
         this.playGirlIdleAnim();
+        this.playIdleFrameOutAnim();
         this.playBTnSpinIdleAnim(true, true);
         this.resetFrameBoardContent();
     }
@@ -122,6 +126,11 @@ export class UIController extends Component
         this.showhideChatBox(false, 3);
     }
 
+    newState()
+    {
+        this.playIdleFrameOutAnim();
+    }
+
     winState()
     {
         var callback = ()=>
@@ -130,14 +139,19 @@ export class UIController extends Component
         }
         this.playGirlWinAnim(callback);
 
-        this.showhideChatBox(true);
-        this.setChatBoxConentWithAnim(ChatBoxContent.win, 0.5);
+        // this.showhideChatBox(true);
+        // this.setChatBoxConentWithAnim(ChatBoxContent.win, 0.5, ()=>
+        // {
+        //     this.showhideChatBox(false, 1);
+        // });
+        this.playWinFrameOutAnim();
     }
 
     outOfTurnState(onComplete: ()=>void = null)
     {
         // this.showHideTurnDisplay(false);
         this.showHideBackBtnSprite(false, false);
+        this.playIdleFrameOutAnim();
         
         var callback = ()=>
         {
@@ -248,7 +262,7 @@ export class UIController extends Component
         {
             if(this.strIdx >= this.strTemp.length)
             {
-                console.warn("Set Chat Box Content Finish");
+                // console.warn("Set Chat Box Content Finish");
                 this.chatBoxLabel.string = content;
 
                 this.scheduleOnce(()=>
@@ -348,6 +362,17 @@ export class UIController extends Component
     {
         var name = BtnSpinAnimName.touch;
         this.setAnimation(this.btnSpinAnim, name, isLoop, 0, 1, callback);
+    }
+
+    /////////////////////////////////////////// FRAME OUT ANIM /////////////////////////////////////////
+    private playIdleFrameOutAnim(callback: ()=>void = null)
+    {
+        this.setAnimation(this.frameOutAnim, "idle", true, 0, 1, callback);
+    }
+
+    private playWinFrameOutAnim(callback: ()=>void = null)
+    {
+        this.setAnimation(this.frameOutAnim, "win", true, 0, 1, callback);
     }
 
     /////////////////////////////////////////// SPINE ANIM /////////////////////////////////////////
