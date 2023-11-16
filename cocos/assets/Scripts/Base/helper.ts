@@ -15,6 +15,7 @@ export const SCAN_QR_CODE = "SCAN_QR_CODE"
 export const FOLLOW_OA = "FOLLOW_OA"
 export const GET_HREF = "GET_HREF"
 export const SHARE_LINK = "SHARE_LINK"
+export const ACCESS_TOKEN = "ACCESS_TOKEN"
 
 export const GET = "data"
 

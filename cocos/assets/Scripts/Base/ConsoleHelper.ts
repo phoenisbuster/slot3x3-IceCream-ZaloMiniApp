@@ -23,7 +23,9 @@ export class ConsoleHelper extends Component {
 
     start() {
        this.createInstance();
-       if (window) {
+       if (window) 
+       {
+            console.error("window");    
             //@ts-ignore
             window.onReceivedMessage = ConsoleHelper.Instance.onReceivedMessage.bind(this)
        }
@@ -32,7 +34,8 @@ export class ConsoleHelper extends Component {
 
     sendMessageToParent(event = null, data = null){
         let message = createChildMessage(event, data);
-        window.parent.postMessage(message,'*');
+        // window.parent.postMessage(message,'*');
+        window.top.postMessage(message,'*');
     }
 
     onReceivedMessage(msg){
@@ -40,11 +43,16 @@ export class ConsoleHelper extends Component {
     }
 
     init(){
-        if(window.addEventListener){
+        if(window.addEventListener)
+        {
+            console.error("addEventListener");
             //@ts-ignore
             window.addEventListener("message", window.onReceivedMessage, false);
-        } else {
-             //@ts-ignore
+        } 
+        else 
+        {
+            console.error("attachEvent");
+            //@ts-ignore
             window.attachEvent("onmessage", window.onReceivedMessage);
         }
     }
